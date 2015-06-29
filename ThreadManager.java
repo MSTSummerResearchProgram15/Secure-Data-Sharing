@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 public class ThreadManager {
 	public static char[] array;
-	public static File fin, fout;
+	public static File fin, fin2, fout;
 	
 	public static void main(String[] args) throws IOException{
 		//Generate parameters
@@ -52,9 +52,28 @@ public class ThreadManager {
         	Runnable worker = new Encryption(fin, fout, params);
         	executor.execute(worker);
         } 
-        
-        
-        //Decrypt the file chunks
+
+		// sign file chunks
+		for(int i = 0; i < numFiles; i++){
+			String fileIn = "Encrypted" + i + ".txt";
+			fin = new File(fileIn);
+			String fileOut = "Encrypted" + i + ".txt" + ".signature";
+			fout = new File(fileOut);
+			Runnable worker = new Signer(fin, fout, params);
+			executor.execute(worker);
+		}
+
+		// verify file chunks
+		for(int i = 0; i < numFiles; i++){
+			String fileIn = "Encrypted" + i + ".txt";
+			fin = new File(fileIn);
+			String sigIn = "Encrypted" + i + ".txt" + ".signature";
+			fin2 = new File(sigIn);
+			Runnable worker = new Signer(fin, fin2, params);
+			executor.execute(worker);
+		}
+
+		//Decrypt the file chunks
         for(int i = 0; i < numFiles; i++){
         	String fileIn = "Encrypted" + i + ".txt";
         	fin = new File(fileIn);

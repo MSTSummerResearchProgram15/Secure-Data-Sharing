@@ -2,6 +2,7 @@ import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import org.bouncycastle.jce.provider.JDKMessageDigest;
 
+import java.io.*;
 import java.security.MessageDigest;
 
 /**
@@ -9,29 +10,42 @@ import java.security.MessageDigest;
  *
  * Uses sha256 hash
  */
-public class Signer {
+public class Signer implements Runnable {
 
     Pairing pairing;
     Element sysParams;
     Element publicKey;
     Element privateKey;
+    File output;
+    File input;
 
-    // full constructor
-    public Signer(Pairing pairing, Element sysParams, Element publicKey, Element privateKey){
-        this.pairing = pairing;
-        this.sysParams = sysParams;
-        this.publicKey = publicKey;
-        this.privateKey = privateKey;
+    // constructor
+    public Signer(File input, File output, Params params){
+        this.pairing = params.getPairing();
+        this.sysParams = params.getg();
+        this.publicKey = params.getOwnerPK();
+        this.privateKey = params.getOwnerSK();
+        this.output = output;
+        this.input = input;
     }
 
-    // partial constructor, use for verifying
-    public Signer(Pairing pairing, Element sysParams, Element publicKey){
-        this(pairing, sysParams, publicKey, null);
-    }
+    //run
+    public void run(){
+        InputStream is;
+        OutputStream os;
+        try {
+            is = new FileInputStream(input);
+            os = new FileOutputStream(output);
+            byte[] message = new byte[is.available()];
+            is.read(message);
+            os.write(generateSignature(message).toBytes());
+            is.close();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
-    // partial constructor, use for signing
-    public Signer(Pairing pairing, Element privateKey){
-        this(pairing, null, null, privateKey);
     }
 
     // generates the signature using a value and the private key (uses hash of value)
@@ -40,14 +54,6 @@ public class Signer {
         Element map = mapValue(message);
         sig = map.powZn(privateKey);
         return sig;
-    }
-
-    // verifies that the signature is valid, given the necessary inputs
-    public boolean verifySignature(Element signature, byte[] message){
-        Element map = mapValue(message);
-        Element temp1 = pairing.pairing(signature, sysParams);
-        Element temp2 = pairing.pairing(map,publicKey);
-        return temp1.equals(temp2);
     }
 
     // takes the value, and maps the hash of the value
