@@ -1,4 +1,5 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,22 +17,35 @@ public class ByteReaderWriter {
 	int blockSize;
 	File fout;
 	long numberofBlocks;
-	byte[] array;
-	InputStream in;
+	char[] charArray;
+	byte[] byteArray;
+	BufferedReader br;
 	BufferedWriter bw;
+	InputStream is;
 	OutputStream os;
 	int eof;
 	
 	//Read a file n bytes at a time (to handle large files)
-	public byte[] readFile(int blockSize, InputStream in) throws IOException{
+	public char[] readFile(int blockSize, BufferedReader br) throws IOException{
 		this.blockSize = blockSize; //specify the size of the file block (in bytes)
-		this.in = in;
-		array = new byte[blockSize];
-		int eof = 0;
-		this.in.read(array, 0, blockSize);
-		return array;
+		this.br = br;
+		charArray = new char[blockSize];
+		this.br.read(charArray, 0, blockSize);
+		return charArray;
 	}
-		
+	
+	public byte[] readFile(int blockSize, InputStream is) throws IOException{
+		this.blockSize = blockSize; //specify the size of the file block (in bytes)
+		this.is = is;
+		byteArray = new byte[blockSize];
+		this.is.read(byteArray, 0, blockSize);
+		return byteArray;
+	}
+	
+	public void writeFile(char[] line, BufferedWriter bw) throws IOException{
+		this.bw = bw;
+		this.bw.write(line);
+	}
 	
 	public void writeFile(byte[] line, OutputStream os) throws IOException{
 		this.os = os;

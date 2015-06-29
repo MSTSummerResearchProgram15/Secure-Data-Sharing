@@ -8,9 +8,10 @@ public class Params {
 	private Field zr, g1, gt;
 	private Element pk_a, sk_a, isk_a, isk_b, pk_b, sk_b, ownersk_a, g, k, g_k, z_k, e, rka_b;
 	private ElementPowPreProcessing gpre;
+	private Pairing pairing;
 	
 	public void setPairing(Pairing pairing){
-		
+		this.pairing = pairing;
 	}
 	
 	public void setg1(Field g1){
@@ -75,6 +76,10 @@ public class Params {
 	
 	public Element getz_k(){
 		return this.z_k;
+	}
+	
+	public Pairing getPairing(){
+		return this.pairing;
 	}
 	
 	//********Keys*******//
