@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 public class ThreadManager {
@@ -84,7 +85,11 @@ public class ThreadManager {
         }
         executor.shutdown();
         
-        /*
+      //wait for threads to finish before continuing
+        try {
+			executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+		} catch (InterruptedException e) {e.printStackTrace();}
+        
         //Post processing - merge the file chunks back into one file
   		String fileOut = "Decrypted_Final.txt";
   		fout = new File(fileOut);
@@ -98,6 +103,6 @@ public class ThreadManager {
       		Files.delete(fin.toPath());
       		reader.close();
         }
-        writer.close();*/
+        writer.close();
 	}
 }

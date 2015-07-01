@@ -19,6 +19,7 @@ public class Decryption implements Runnable{
 	byte[] cipher1, cipher2, result;
 	Element decrypt, c1, c2;
 	BufferedWriter bw;
+	InputStream in;
 	
 	public Decryption(File fin, File fout, Params params){
 		this.fin = fin;
@@ -28,12 +29,10 @@ public class Decryption implements Runnable{
 
 	public void run(){
 		ByteReaderWriter bytes = new ByteReaderWriter();
-		InputStream in = null;
-		OutputStream os = null;
 		String temp = null;
 		
 		long length = fin.length(); //get the length of the input file
-		int blockSize = 128; //length of blocks in bytes
+		int blockSize = (int)length; //length of blocks in bytes
 		long blocks = (long)Math.ceil((double)length/(double)blockSize); //How many blocks the file will be encrypted in
 		try {
 			in = new FileInputStream(fin);
@@ -42,8 +41,8 @@ public class Decryption implements Runnable{
 			bw = new BufferedWriter(new FileWriter(fout, true));
 		} catch (IOException e1) {e1.printStackTrace();}
 		
-		for(int i = 0; i < blocks; i++){
-			int ciphertextSize = blockSize/2;
+		//for(int i = 0; i < blocks; i++){
+			int ciphertextSize = params.getOwnerPK().getLengthInBytes();
 			cipher1 = new byte[ciphertextSize];
 			cipher2 = new byte[ciphertextSize];
 		
