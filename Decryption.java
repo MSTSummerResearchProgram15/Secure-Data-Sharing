@@ -76,7 +76,7 @@ public class Decryption implements Runnable{
 		try {
 			bytes.writeFile(charArray, bw);
 		} catch (IOException e) {e.printStackTrace();}
-	}
+	
 		try {
 			bw.close();
 		} catch (IOException e) {e.printStackTrace();}
