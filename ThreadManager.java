@@ -46,6 +46,8 @@ public class ThreadManager {
         	executor.execute(worker);
         } 
         
+        // ehh, where'd the signing go?
+        
         //Decrypt the file chunks
         for(int j = 0; j < numFiles; j++){
         	String fileIn = "Encrypted" + j + ".txt";
