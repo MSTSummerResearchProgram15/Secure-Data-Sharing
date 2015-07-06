@@ -168,9 +168,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="64 byte"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="block64ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="noFileSelectedLabel">
       <Properties>
@@ -181,9 +178,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="128 byte"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="block128ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="block256">
       <Properties>
@@ -247,9 +241,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="RSA"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RSAButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator2">
     </Component>

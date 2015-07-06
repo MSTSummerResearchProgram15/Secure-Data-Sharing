@@ -76,20 +76,10 @@ public class FileUploadPanel extends javax.swing.JPanel {
         setVerifyInputWhenFocusTarget(false);
 
         block64.setText("64 byte");
-        block64.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                block64ActionPerformed(evt);
-            }
-        });
 
         noFileSelectedLabel.setText("No file selected, please select a file");
 
         block128.setText("128 byte");
-        block128.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                block128ActionPerformed(evt);
-            }
-        });
 
         block256.setSelected(true);
         block256.setText("256 byte");
@@ -117,11 +107,6 @@ public class FileUploadPanel extends javax.swing.JPanel {
         BLSButton.setText("BLS");
 
         RSAButton.setText("RSA");
-        RSAButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RSAButtonActionPerformed(evt);
-            }
-        });
 
         SettingsButton.setText("User Access Settings");
         SettingsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -281,18 +266,6 @@ public class FileUploadPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void block64ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_block64ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_block64ActionPerformed
-
-    private void block128ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_block128ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_block128ActionPerformed
-
-    private void RSAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RSAButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RSAButtonActionPerformed
-
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
@@ -317,7 +290,11 @@ public class FileUploadPanel extends javax.swing.JPanel {
         if(selectedFile == null){
             noFileSelectedLabel.setVisible(true);
         } else {
-            // get selectd parameters from radio buttons
+            int blockSize = findBlockSize();
+            int keySize = findKeySize();
+            String signatureType = "BLS";
+            if(RSAButton.isSelected()){signatureType = "RSA";}
+            
             // call file uploader/encrypter class
         }
     }//GEN-LAST:event_UploadButtonActionPerformed
@@ -330,7 +307,28 @@ public class FileUploadPanel extends javax.swing.JPanel {
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    public int findBlockSize(){
+       int blockSize = 256;
+       if(block64.isSelected()){ blockSize = 64;}
+       if(block128.isSelected()){ blockSize = 128;}
+       if(block256.isSelected()){ blockSize = 256;}
+       if(block512.isSelected()){ blockSize = 512;}
+       if(block1024.isSelected()){ blockSize = 1024;}
+       if(block2048.isSelected()){ blockSize = 2048;}
+       return blockSize;
+    }
 
+    public int findKeySize(){
+        int keySize = 512;
+        if(size128.isSelected()){keySize = 128;}
+        if(size256.isSelected()){keySize = 256;}
+        if(size512.isSelected()){keySize = 512;}
+        if(size1024.isSelected()){keySize = 1024;}
+        if(size2048.isSelected()){keySize = 2048;}
+        if(size4096.isSelected()){keySize = 4096;}
+        return keySize;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton BLSButton;
     private javax.swing.JButton ChooseFileButton;
