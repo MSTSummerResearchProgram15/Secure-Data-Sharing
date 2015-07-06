@@ -20,15 +20,18 @@ public class Decryption implements Runnable{
 	Element decrypt, c1, c2;
 	BufferedWriter bw;
 	InputStream in;
+	User owner, user1;
 	
-	public Decryption(File fin, File fout, Params params){
+	public Decryption(File fin, File fout, Params params, User owner, User user1){
 		this.fin = fin;
 		this.fout = fout;
 		this.params = params;
+		this.owner = owner;
+		this.user1 = user1;
 	}
 
 	public void run(){
-		ByteReaderWriter bytes = new ByteReaderWriter();
+		FileReaderWriter bytes = new FileReaderWriter();
 		String temp = null;
 		
 		long length = fin.length(); //get the length of the input file
@@ -42,7 +45,7 @@ public class Decryption implements Runnable{
 		} catch (IOException e1) {e1.printStackTrace();}
 		
 		//for(int i = 0; i < blocks; i++){
-			int ciphertextSize = params.getOwnerPK().getLengthInBytes();
+			int ciphertextSize = owner.getPK().getLengthInBytes();
 			cipher1 = new byte[ciphertextSize];
 			cipher2 = new byte[ciphertextSize];
 		
@@ -56,13 +59,13 @@ public class Decryption implements Runnable{
 		
 		c1 = params.getg1().newRandomElement();
 		c2 = params.getgt().newRandomElement();
-
+		
 		c1.setFromBytes(cipher1);
 		c2.setFromBytes(cipher2);
 		
 		//Begin decryption here
-		Element reencrypt = params.getPairing().pairing(c1,params.getReEncryptionKey());
-		Element ialpha = reencrypt.powZn(params.getUserISK());
+		Element reencrypt = params.getPairing().pairing(c1,user1.getReEncryptKey());
+		Element ialpha = reencrypt.powZn(user1.getISK());
 		decrypt = c2.div(ialpha);
 		result = new byte[decrypt.getLengthInBytes()];
 		result = decrypt.toBytes();
@@ -76,7 +79,7 @@ public class Decryption implements Runnable{
 		try {
 			bytes.writeFile(charArray, bw);
 		} catch (IOException e) {e.printStackTrace();}
-	
+	//}
 		try {
 			bw.close();
 		} catch (IOException e) {e.printStackTrace();}

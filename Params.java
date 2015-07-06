@@ -9,9 +9,14 @@ public class Params {
 	private Element pk_a, sk_a, isk_a, isk_b, pk_b, sk_b, ownersk_a, g, k, g_k, z_k, e, rka_b;
 	private ElementPowPreProcessing gpre;
 	private Pairing pairing;
-	
+	private int chunkSize;
+
 	public void setPairing(Pairing pairing){
 		this.pairing = pairing;
+	}
+	
+	public void setFileChunkSize(int chunkSize){
+		this.chunkSize = chunkSize;
 	}
 	
 	public void setg1(Field g1){
@@ -82,60 +87,8 @@ public class Params {
 		return this.pairing;
 	}
 	
-	//********Keys*******//
-	public void setOwnerPK(Element pk_a){
-		this.pk_a = pk_a;
+	public int getFileChunkSize(){
+		return this.chunkSize;
 	}
 	
-	public void setOwnerSK(Element sk_a){
-		this.sk_a = sk_a;
-	}
-	
-	public void setOwnerISK(Element isk_a){
-		this.isk_a = isk_a;
-	}
-	
-	public void setUserPK(Element pk_b){
-		this.pk_b = pk_b;
-	}
-	
-	public void setUserSK(Element sk_b){
-		this.sk_b = sk_b;
-	}
-	
-	public void setUserISK(Element isk_b){
-		this.isk_b = isk_b;
-	}
-	
-	public void setReEncryptionKey(Element rka_b){
-		this.rka_b = rka_b;
-	}
-	
-	public Element getOwnerPK(){
-		return this.pk_a;
-	}
-	
-	public Element getOwnerSK(){
-		return this.sk_a;
-	}
-	
-	public Element getOwnerISK(){
-		return this.isk_a;
-	}
-	
-	public Element getUserPK(){
-		return this.pk_b;
-	}
-	
-	public Element getUserSK(){
-		return this.sk_b;
-	}
-	
-	public Element getUserISK(){
-		return this.isk_b;
-	}
-	
-	public Element getReEncryptionKey(){
-		return this.rka_b;
-	}
 }
