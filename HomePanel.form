@@ -27,7 +27,7 @@
                       <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="235" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="changePermissionsButtons" min="-2" max="-2" attributes="0"/>
+                          <Component id="changePermissionsButton" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="uploadFileButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="logOutButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="changePermissionsButtons" min="-2" max="-2" attributes="0"/>
+              <Component id="changePermissionsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="346" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -88,12 +88,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logOutButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="changePermissionsButtons">
+    <Component class="javax.swing.JButton" name="changePermissionsButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Change Permissions"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changePermissionsButtonsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changePermissionsButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

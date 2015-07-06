@@ -25,6 +25,7 @@ public class HomePanel extends javax.swing.JPanel {
         initComponents();
         if(!isOwner){
             uploadFileButton.setEnabled(false);
+            changePermissionsButton.setEnabled(false);
             welcomeLabel.setText("Welcome, User");
         } else {
             welcomeLabel.setText("Welcome, Data Owner");
@@ -44,7 +45,7 @@ public class HomePanel extends javax.swing.JPanel {
         uploadFileButton = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
-        changePermissionsButtons = new javax.swing.JButton();
+        changePermissionsButton = new javax.swing.JButton();
 
         downloadFileButton.setText("Download File");
         downloadFileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -69,10 +70,10 @@ public class HomePanel extends javax.swing.JPanel {
             }
         });
 
-        changePermissionsButtons.setText("Change Permissions");
-        changePermissionsButtons.addActionListener(new java.awt.event.ActionListener() {
+        changePermissionsButton.setText("Change Permissions");
+        changePermissionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changePermissionsButtonsActionPerformed(evt);
+                changePermissionsButtonActionPerformed(evt);
             }
         });
 
@@ -90,7 +91,7 @@ public class HomePanel extends javax.swing.JPanel {
                         .addComponent(welcomeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(changePermissionsButtons)
+                            .addComponent(changePermissionsButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(uploadFileButton)
                                 .addGap(18, 18, 18)
@@ -108,7 +109,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logOutButton)
                 .addGap(18, 18, 18)
-                .addComponent(changePermissionsButtons)
+                .addComponent(changePermissionsButton)
                 .addContainerGap(346, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -137,17 +138,17 @@ public class HomePanel extends javax.swing.JPanel {
         frame[0].pack();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
-    private void changePermissionsButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermissionsButtonsActionPerformed
+    private void changePermissionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermissionsButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
         JPanel loginPanel = new PermissionsPanel(isOwner);
         frame[0].add(loginPanel , BorderLayout.CENTER);
         frame[0].pack();
-    }//GEN-LAST:event_changePermissionsButtonsActionPerformed
+    }//GEN-LAST:event_changePermissionsButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton changePermissionsButtons;
+    private javax.swing.JButton changePermissionsButton;
     private javax.swing.JButton downloadFileButton;
     private javax.swing.JButton logOutButton;
     private javax.swing.JButton uploadFileButton;
