@@ -20,11 +20,11 @@ public class Signer implements Runnable {
     File input;
 
     // constructor
-    public Signer(File input, File output, Params params){
+    public Signer(File input, File output, Params params, User user){
         this.pairing = params.getPairing();
         this.sysParams = params.getg();
-        this.publicKey = params.getOwnerPK();
-        this.privateKey = params.getOwnerSK();
+        this.publicKey = user.getPK();
+        this.privateKey = user.getSK();
         this.output = output;
         this.input = input;
     }

@@ -55,7 +55,7 @@ public class ThreadManager {
 			fin = new File(fileIn);
 			String fileOut = "Encrypted" + i + ".txt" + ".signature";
 			fout = new File(fileOut);
-			Runnable worker = new Signer(fin, fout, params);
+			Runnable worker = new Signer(fin, fout, params, owner);
 			executor.execute(worker);
 		}
 
@@ -64,8 +64,8 @@ public class ThreadManager {
 			String fileIn = "Encrypted" + i + ".txt";
 			fin = new File(fileIn);
 			String sigIn = "Encrypted" + i + ".txt" + ".signature";
-			fin2 = new File(sigIn);
-			Runnable worker = new Signer(fin, fin2, params);
+			fout = new File(sigIn);                                 // not acutally an output....
+			Runnable worker = new Signer(fin, fout, params, owner);
 			executor.execute(worker);
 		}
         

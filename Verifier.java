@@ -18,11 +18,11 @@ public class Verifier implements Runnable{
     File message;
 
     // constructor
-    public Verifier(File message, File signature, Params params){
+    public Verifier(File message, File signature, Params params, User user){
         this.pairing = params.getPairing();
         this.sysParams = params.getg();
-        this.publicKey = params.getOwnerPK();
-        this.privateKey = params.getOwnerSK();
+        this.publicKey = user.getPK();
+        this.privateKey = user.getSK();
         this.message = message;
         this.signature = signature;
     }
