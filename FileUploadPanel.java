@@ -2,10 +2,12 @@
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.JFileChooser;
-import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -295,7 +297,26 @@ public class FileUploadPanel extends javax.swing.JPanel {
             String signatureType = "BLS";
             if(RSAButton.isSelected()){signatureType = "RSA";}
             
-            // call file uploader/encrypter class
+            ThreadManager up = new ThreadManager();
+            
+            try {               
+                up.preprocess(selectedFile, blockSize);
+            } catch (IOException ex) {
+               JOptionPane.showMessageDialog(this, "File not found");
+            }
+            String fileName = selectedFile.getName();
+            int pos = fileName.lastIndexOf(".");
+            String baseName = "";
+            if (pos > 0) {
+            baseName = fileName.substring(0, pos);
+            }
+            String fileExtension;
+            int pos2 = fileName.length();
+            fileExtension = fileName.substring(pos, pos2);
+            String filePath = selectedFile.getPath();
+            int pathLength = filePath.length();
+            filePath = filePath.substring(0, pathLength - pos2);
+            up.Encrypt(filePath, baseName, fileExtension);
         }
     }//GEN-LAST:event_UploadButtonActionPerformed
 

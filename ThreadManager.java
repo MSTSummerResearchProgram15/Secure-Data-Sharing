@@ -26,13 +26,20 @@ public class ThreadManager {
             user1 = key.generate(); //generate the keys for data user 1
         }
         
-        public void preprocess(String fileName, int blockSize) throws IOException{
+        public void preprocess(File file, int blockSize) throws IOException{
             //Preprocessing - split file into chunks
             int chunkSize = blockSize; //desired size of file chunks, probably will only allow 128, 256, and 512 in future versions
-            String inputFile = fileName;
-            File fin = new File(inputFile);
+            File fin = file;
             numFiles = (long)Math.ceil((double)fin.length()/(double)chunkSize);
-            sm = new FileSplitMerge(inputFile, blockSize);
+            String fileName = file.getName();
+            int pos = fileName.lastIndexOf(".");
+            String baseName = "";
+            if (pos > 0) {
+            baseName = fileName.substring(0, pos);
+            }
+            System.out.println("I got here");
+            sm = new FileSplitMerge(baseName, blockSize); // doesnt know where to look! only looks in current dir.
+            System.out.println("here too");
             sm.splitFile();
         }
         

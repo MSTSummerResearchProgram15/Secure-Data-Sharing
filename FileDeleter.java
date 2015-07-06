@@ -22,7 +22,7 @@ public class FileDeleter {
     // deletes files specified in constructor
     public void delete(){
         String path;
-        for (long i = 1; i < numberOfFiles; i++) {
+        for (long i = 0; i < numberOfFiles; i++) {
             path = filePath + baseFileName + i + extension;
             toDelete = new File(path);
             toDelete.delete();

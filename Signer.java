@@ -1,14 +1,13 @@
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import org.bouncycastle.jce.provider.JDKMessageDigest;
-
 import java.io.*;
 import java.security.MessageDigest;
 
 /**
  * Created by Dylan on 6/24/2015.
  *
- * Uses sha256 hash
+ * Uses SHA256 hash
  */
 public class Signer implements Runnable {
 
