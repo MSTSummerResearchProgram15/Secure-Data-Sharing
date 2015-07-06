@@ -13,7 +13,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 //This class reads n number of bytes from a text file at a time
-public class ByteReaderWriter {
+public class FileReaderWriter {
 	int blockSize;
 	File fout;
 	long numberofBlocks;
