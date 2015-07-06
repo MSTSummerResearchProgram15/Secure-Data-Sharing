@@ -20,7 +20,8 @@ public class ParamsGen {
 		//PairingParameters curveParams = PairingFactory.getPairingParameters("a_181_603.properties");
 		this.pairing = PairingFactory.getPairing(curveParams);
 		params.setPairing(this.pairing);
-				
+		
+		params.setFileChunkSize(128); //Set the file chunk size that will be used for splitting (128, 256, and 512 are probably the only valid options)
 		//Initialize the parameters for second-level encryption
 		params.setg1(pairing.getG1());
 	    params.setgt(pairing.getGT());
@@ -30,20 +31,6 @@ public class ParamsGen {
 		params.setk(params.getzr().newRandomElement().getImmutable());
 		params.setg_k(params.getgpre().powZn(params.getk()).getImmutable());
 		params.setz_k(pairing.pairing(params.getg(), params.getg_k()).getImmutable());
-							      
-		//Generate data owner keys
-		params.setOwnerSK(pairing.getZr().newRandomElement().getImmutable()); //private key
-		params.setOwnerPK(params.getgpre().powZn(params.getOwnerSK()).getImmutable());
-		params.setOwnerISK(params.getOwnerSK().invert().getImmutable()); //invert the secret key to calculate the proxy re-encryption key
-				
-				
-		//Generate user keys (USER1)
-		params.setUserSK(pairing.getZr().newRandomElement().getImmutable()); //private key
-		params.setUserPK(params.getgpre().powZn(params.getUserSK()).getImmutable());
-		params.setUserISK(params.getUserSK().invert().getImmutable());
-				
-		//Generate proxy re-encryption keys
-		params.setReEncryptionKey(params.getUserPK().powZn(params.getOwnerISK()).getImmutable());
 		
 		return params;
 	}

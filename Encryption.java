@@ -24,16 +24,17 @@ public class Encryption implements Runnable{
 	FileOutputStream out;
 	Params params;
 	public Element c1, c2, reencrypt;
-	
-	public Encryption(File fin, File fout, Params params){
+	User owner;
+	public Encryption(File fin, File fout, Params params, User owner){
 		this.fin = fin;
 		this.fout = fout;
 		this.params = params;
+		this.owner = owner;
 	}
 		
 	public void run(){
 		Element plainText;
-		ByteReaderWriter bytes = new ByteReaderWriter();
+		FileReaderWriter bytes = new FileReaderWriter();
 		long length = fin.length(); //Length of input file
 		byte[] result, stringToBytes = null;
 		String temp;
@@ -60,11 +61,10 @@ public class Encryption implements Runnable{
 			try {
 				stringToBytes = temp.getBytes("UTF-8");
 			} catch (UnsupportedEncodingException e) {e.printStackTrace();}
-			
 			//encrypt here
 			plainText = params.getgt().newRandomElement();
 			plainText.setFromBytes(stringToBytes);
-			c1 = params.getOwnerPK().powZn(params.getk());
+			c1 = owner.getPK().powZn(params.getk());
 			c2 = params.getz_k().mul(plainText);
 			result = new byte[c1.getLengthInBytes() + c2.getLengthInBytes()]; //set the byte array size = size of both ciphertexts
 			System.arraycopy(c1.toBytes(), 0, result, 0, c1.getLengthInBytes());
@@ -88,7 +88,4 @@ public class Encryption implements Runnable{
 		} catch (IOException e) {e.printStackTrace();}
 		
 	}
-	
-			
-	
 }
