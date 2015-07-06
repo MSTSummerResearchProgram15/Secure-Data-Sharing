@@ -6,7 +6,7 @@ import it.unisa.dia.gas.jpbc.Pairing;
 
 public class Params {
 	private Field zr, g1, gt;
-	private Element pk_a, sk_a, isk_a, isk_b, pk_b, sk_b, ownersk_a, g, k, g_k, z_k, e, rka_b;
+	private Element g, k, g_k, z_k;
 	private ElementPowPreProcessing gpre;
 	private Pairing pairing;
 	private int chunkSize;

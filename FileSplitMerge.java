@@ -12,10 +12,9 @@ import java.nio.file.Files;
  */
 public class FileSplitMerge {
 	File fin, fout;
-	String filein;
+	File filein;
 	String mergedOutputFile;
 	String fileToSplit;
-	String[] splitOutputFiles;
 	int chunkSize;
 	long numFiles;
 	FileReaderWriter rw;
@@ -25,9 +24,10 @@ public class FileSplitMerge {
 	}
 	
 	FileSplitMerge(String inputFile, int chunkSize){
-		this.filein = inputFile;
+		this.filein = new File(inputFile);
 		this.chunkSize = chunkSize;
 		this.numFiles = (long)Math.ceil((double)this.filein.length()/(double)this.chunkSize); //number of files = length of input file file/file chunk size
+		System.out.println(numFiles);
 	}
 	
 	void mergeFiles(String[] inputFiles) throws IOException{
@@ -60,7 +60,7 @@ public class FileSplitMerge {
 		
 		//Read "chunksize" bytes from the input file, write it to an output file, and repeat
 		for(int i = 0; i < numFiles; i++){
-			BufferedWriter bw = new BufferedWriter(new FileWriter(splitOutputFiles[i]));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("File" + i + ".txt"));
 			char[] input = rw.readFile(chunkSize, br);
 			rw.writeFile(input, bw);
 			bw.close();
