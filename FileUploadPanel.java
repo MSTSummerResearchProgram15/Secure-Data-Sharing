@@ -46,6 +46,9 @@ public class FileUploadPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         block64 = new javax.swing.JRadioButton();
         noFileSelectedLabel = new javax.swing.JLabel();
         block128 = new javax.swing.JRadioButton();
@@ -77,37 +80,51 @@ public class FileUploadPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 450));
         setVerifyInputWhenFocusTarget(false);
 
+        buttonGroup1.add(block64);
         block64.setText("64 byte");
 
         noFileSelectedLabel.setText("No file selected, please select a file");
 
+        buttonGroup1.add(block128);
         block128.setText("128 byte");
 
+        buttonGroup1.add(block256);
         block256.setSelected(true);
         block256.setText("256 byte");
 
+        buttonGroup1.add(block512);
         block512.setText("512 byte");
 
+        buttonGroup1.add(block1024);
         block1024.setText("1024 byte");
 
+        buttonGroup1.add(block2048);
         block2048.setText("2048 byte");
 
+        buttonGroup2.add(size128);
         size128.setText("128 bit");
 
+        buttonGroup2.add(size256);
         size256.setText("256 bit");
 
+        buttonGroup2.add(size512);
         size512.setSelected(true);
         size512.setText("512 bit");
 
+        buttonGroup2.add(size1024);
         size1024.setText("1024 bit");
 
+        buttonGroup2.add(size2048);
         size2048.setText("2048 bit");
 
+        buttonGroup2.add(size4096);
         size4096.setText("4096 bit");
 
+        buttonGroup3.add(BLSButton);
         BLSButton.setSelected(true);
         BLSButton.setText("BLS");
 
+        buttonGroup3.add(RSAButton);
         RSAButton.setText("RSA");
 
         SettingsButton.setText("User Access Settings");
@@ -363,6 +380,9 @@ public class FileUploadPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton block256;
     private javax.swing.JRadioButton block512;
     private javax.swing.JRadioButton block64;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
