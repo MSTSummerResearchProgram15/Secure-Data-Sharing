@@ -38,7 +38,7 @@ public class ThreadManager {
             baseName = fileName.substring(0, pos);
             }
             System.out.println("I got here");
-            sm = new FileSplitMerge(baseName, blockSize); // doesnt know where to look! only looks in current dir.
+            sm = new FileSplitMerge(file, blockSize); // doesnt know where to look! only looks in current dir.
             System.out.println("here too");
             sm.splitFile();
         }

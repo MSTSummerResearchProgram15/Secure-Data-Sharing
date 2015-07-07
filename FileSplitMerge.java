@@ -23,8 +23,8 @@ public class FileSplitMerge {
 		//Default constructor (can be used when you just want to merge but not split, don't know the original input file, etc)
 	}
 	
-	FileSplitMerge(String inputFile, int chunkSize){
-		this.filein = new File(inputFile);
+	FileSplitMerge(File inputFile, int chunkSize){
+		this.filein = inputFile;
 		this.chunkSize = chunkSize;
 		this.numFiles = (long)Math.ceil((double)this.filein.length()/(double)this.chunkSize); //number of files = length of input file file/file chunk size
 		System.out.println(numFiles);
