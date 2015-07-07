@@ -13,10 +13,14 @@ public class ThreadManager {
         User owner, user1;
         KeyGen key;
         FileSplitMerge sm;
+        String directory;
 	
 	public ThreadManager(){
             //Generate parameters
-            
+            directory = "message";
+            File dir = new File(directory);
+            dir.mkdir();   
+            directory = directory + "\\"; // add forward slash
             ParamsGen gen = new ParamsGen();
             params = gen.generate();
             owner = new User();
@@ -37,10 +41,8 @@ public class ThreadManager {
             if (pos > 0) {
             baseName = fileName.substring(0, pos);
             }
-            System.out.println("I got here");
             sm = new FileSplitMerge(file, blockSize); // doesnt know where to look! only looks in current dir.
-            System.out.println("here too");
-            sm.splitFile();
+            sm.splitFile(directory);
         }
         
         // include "." in the extension
@@ -48,9 +50,9 @@ public class ThreadManager {
             //Encrypt the file chunks
             ExecutorService executor = Executors.newFixedThreadPool(4);
             for(int i = 0; i < numFiles; i++){
-                String fileIn = filePath + baseFileName + i + extension;
+                String fileIn = directory + baseFileName + i + extension;
                 fin = new File(fileIn);
-                String fileOut = filePath + baseFileName + i + ".encrypted";
+                String fileOut = directory + baseFileName + i + ".encrypted";
                 fout = new File(fileOut);
                 Runnable worker = new Encryption(fin, fout, params, owner);
                 executor.execute(worker);
@@ -61,9 +63,9 @@ public class ThreadManager {
 
             // sign file chunks
             for(int i = 0; i < numFiles; i++){
-                String fileIn = baseFileName + i + ".encrypted";
+                String fileIn = directory + baseFileName + i + ".encrypted";
                 fin = new File(fileIn);
-                String fileOut = baseFileName + i + ".encrypted" + ".signature";
+                String fileOut = directory + baseFileName + i + ".encrypted" + ".signature";
                 fout = new File(fileOut);
                 Runnable worker = new Signer(fin, fout, params, owner);
                 executor.execute(worker);
@@ -73,9 +75,9 @@ public class ThreadManager {
             ExecutorService executor = Executors.newFixedThreadPool(4);
             // verify file chunks
             for(int i = 0; i < numFiles; i++){
-                String fileIn = baseFileName + i + ".encrypted";
+                String fileIn = directory + baseFileName + i + ".encrypted";
                 fin = new File(fileIn);
-                String sigIn = baseFileName + i + ".encrypted" + ".signature";
+                String sigIn = directory + baseFileName + i + ".encrypted" + ".signature";
                 fout = new File(sigIn);                                 // not acutally an output....
                 Runnable worker = new Signer(fin, fout, params, owner);
                 executor.execute(worker);
@@ -84,9 +86,9 @@ public class ThreadManager {
             //Decrypt the file chunks
             key.generateRK(owner, user1); //generate the proxy re-encryption key
             for(int j = 0; j < numFiles; j++){
-                String fileIn = baseFileName + j + ".encrypted";
+                String fileIn = directory + baseFileName + j + ".encrypted";
                 fin = new File(fileIn);
-                String fileOut = baseFileName + j + ".txt";
+                String fileOut = directory + baseFileName + j + ".txt";
                 fout = new File(fileOut);
                 Runnable worker = new Decryption(fin, fout, params, owner, user1);
                 executor.execute(worker);
@@ -101,7 +103,7 @@ public class ThreadManager {
             //Create an array of all files to merge
             String[] inputFiles = new String[(int)numFiles];
             for(int i = 0; i < numFiles; i++){
-                inputFiles[i] = baseFileName + i + ".txt";
+                inputFiles[i] = directory + baseFileName + i + ".txt";
             }
             sm.mergeFiles(inputFiles);
         

@@ -48,7 +48,7 @@ public class FileSplitMerge {
 		bw.close();
 	}
 	
-	void splitFile() throws IOException{
+	void splitFile(String directory) throws IOException{
 		FileReaderWriter rw = new FileReaderWriter();
 		BufferedReader br = new BufferedReader(new FileReader(filein));
 		
@@ -57,10 +57,22 @@ public class FileSplitMerge {
 		for(int i = 0; i < numFiles; i++){
 			splitFileNames[i] = "File" + i + ".txt";
 		}
-		
+                String fileName = filein.getName();
+                int pos = fileName.lastIndexOf(".");
+                String baseName = "";
+                if (pos > 0) {
+                baseName = fileName.substring(0, pos);
+                }
+                String fileExtension;
+                int pos2 = fileName.length();
+                fileExtension = fileName.substring(pos, pos2);
+                String filePath = filein.getPath();
+                int pathLength = filePath.length();
+                filePath = filePath.substring(0, pathLength - pos2);
 		//Read "chunksize" bytes from the input file, write it to an output file, and repeat
 		for(int i = 0; i < numFiles; i++){
-			BufferedWriter bw = new BufferedWriter(new FileWriter("File" + i + ".txt"));
+                    
+			BufferedWriter bw = new BufferedWriter(new FileWriter(directory + baseName + i + fileExtension));
 			char[] input = rw.readFile(chunkSize, br);
 			rw.writeFile(input, bw);
 			bw.close();
