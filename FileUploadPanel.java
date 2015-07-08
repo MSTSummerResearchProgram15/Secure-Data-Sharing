@@ -317,7 +317,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
             ThreadManager up = new ThreadManager();
             
             try {               
-                up.preprocess(selectedFile, blockSize);
+                up.preprocess(selectedFile, blockSize); // still needs to pass keysize
             } catch (IOException ex) {
                JOptionPane.showMessageDialog(this, "File not found");
             }

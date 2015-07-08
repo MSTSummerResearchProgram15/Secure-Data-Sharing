@@ -42,7 +42,7 @@ public class FileSplitMerge {
 			BufferedReader br = new BufferedReader(new FileReader(fin));
 			char[] output = rw.readFile(fileSize, br); //read the input file
 			rw.writeFile(output, bw); //write the file to the output file
-			Files.delete(fin.toPath()); //delete the input file
+			//Files.delete(fin.toPath()); //delete the input file// lets use the FileDeleter for this, easier to track down errors later on, call FileDeleter from Decrypt()
 			br.close();
 		}
 		bw.close();

@@ -70,8 +70,23 @@ public class ThreadManager {
                 Runnable worker = new Signer(fin, fout, params, owner);
                 executor.execute(worker);
             }
+            executor.shutdown();
+            try {
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            } catch (InterruptedException e) {e.printStackTrace();}
+            System.out.println("this part works");
+            // this is here to verify the decrypt method
+            try{
+            decrypt(baseFileName, "output");
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+                
         }
-        public void decrypt(String baseFileName) throws IOException {
+        public void decrypt(String baseFileName, String outputDirectory) throws IOException {
+            File dir = new File(outputDirectory);
+            dir.mkdir(); 
+            outputDirectory = outputDirectory + "\\";
             ExecutorService executor = Executors.newFixedThreadPool(4);
             // verify file chunks
             for(int i = 0; i < numFiles; i++){
@@ -83,12 +98,14 @@ public class ThreadManager {
                 executor.execute(worker);
             }
 
+            System.out.println("this part works too");
+            
             //Decrypt the file chunks
             key.generateRK(owner, user1); //generate the proxy re-encryption key
             for(int j = 0; j < numFiles; j++){
                 String fileIn = directory + baseFileName + j + ".encrypted";
                 fin = new File(fileIn);
-                String fileOut = directory + baseFileName + j + ".txt";
+                String fileOut = outputDirectory + baseFileName + j + ".txt";
                 fout = new File(fileOut);
                 Runnable worker = new Decryption(fin, fout, params, owner, user1);
                 executor.execute(worker);
@@ -103,8 +120,9 @@ public class ThreadManager {
             //Create an array of all files to merge
             String[] inputFiles = new String[(int)numFiles];
             for(int i = 0; i < numFiles; i++){
-                inputFiles[i] = directory + baseFileName + i + ".txt";
+                inputFiles[i] = outputDirectory + baseFileName + i + ".txt";
             }
+            System.out.println("I got to here");
             sm.mergeFiles(inputFiles);
         
 	}

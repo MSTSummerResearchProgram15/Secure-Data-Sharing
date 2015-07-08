@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         
         // put this part in a while loop that grabs files from a db until it doesn't have any more
         File testFile;
-        testFile = new File("message.txt");
+        testFile = new File("LoremIpsum");
         fileList.setModel(lm);
         lm.removeAllElements();
         lm.addElement(testFile);    
@@ -73,6 +74,11 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(fileList);
 
         downloadButton.setText("Download File");
+        downloadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downloadButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +189,14 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         Date lastModified = new Date(f.lastModified());
         fileDateModifiedLabel.setText(lastModified.toString());
     }//GEN-LAST:event_fileListValueChanged
+
+    private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
+        ThreadManager dn = new ThreadManager();
+        
+        
+        //dn.decrypt("LoremIpsum");
+        
+    }//GEN-LAST:event_downloadButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
