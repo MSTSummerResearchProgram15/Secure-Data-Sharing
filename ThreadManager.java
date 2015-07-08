@@ -22,12 +22,12 @@ public class ThreadManager {
             dir.mkdir();   
             directory = directory + "\\"; // add back slash
             ParamsGen gen = new ParamsGen();
-            params = gen.generate();
             owner = new User();
+            params = gen.generate();
             key = new KeyGen(params);
             owner = key.generate(); //generate the keys for the data owner
-            user1 = new User();
-            user1 = key.generate(); //generate the keys for data user 1
+            //user1 = new User();
+            //user1 = key.generate(); //generate the keys for data user 1
         }
         
         public void preprocess(File file, int blockSize) throws IOException{

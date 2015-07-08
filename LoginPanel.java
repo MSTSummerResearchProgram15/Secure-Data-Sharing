@@ -110,6 +110,9 @@ public class LoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
+        
+        // get params, owner, and key
+        
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
         if( userSelectBox.getSelectedItem().equals("Data Owner")){isOwner = true;}
