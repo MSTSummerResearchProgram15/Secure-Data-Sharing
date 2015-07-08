@@ -86,10 +86,10 @@ public class FileUploadPanel extends javax.swing.JPanel {
         noFileSelectedLabel.setText("No file selected, please select a file");
 
         buttonGroup1.add(block128);
+        block128.setSelected(true);
         block128.setText("128 byte");
 
         buttonGroup1.add(block256);
-        block256.setSelected(true);
         block256.setText("256 byte");
 
         buttonGroup1.add(block512);

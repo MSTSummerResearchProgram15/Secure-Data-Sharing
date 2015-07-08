@@ -20,7 +20,7 @@ public class ThreadManager {
             directory = "message";
             File dir = new File(directory);
             dir.mkdir();   
-            directory = directory + "\\"; // add forward slash
+            directory = directory + "\\"; // add back slash
             ParamsGen gen = new ParamsGen();
             params = gen.generate();
             owner = new User();
