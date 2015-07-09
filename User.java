@@ -1,6 +1,5 @@
 import it.unisa.dia.gas.jpbc.Element;
 
-
 //This class allows easy access to user keys
 public class User {
 	private Element pk, sk, isk, rk;

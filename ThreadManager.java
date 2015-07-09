@@ -26,8 +26,8 @@ public class ThreadManager {
             params = gen.generate();
             key = new KeyGen(params);
             owner = key.generate(); //generate the keys for the data owner
-            //user1 = new User();
-            //user1 = key.generate(); //generate the keys for data user 1
+            user1 = new User();
+            user1 = key.generate(); //generate the keys for data user 1
         }
         
         public void preprocess(File file, int blockSize) throws IOException{
@@ -101,7 +101,10 @@ public class ThreadManager {
             System.out.println("this part works too");
             
             //Decrypt the file chunks
-            key.generateRK(owner, user1); //generate the proxy re-encryption key
+            
+            // reencryption will be done on server eventually
+            key.generateRK(owner, user1); //generate the proxy re-encryption key 
+            
             for(int j = 0; j < numFiles; j++){
                 String fileIn = directory + baseFileName + j + ".encrypted";
                 fin = new File(fileIn);
@@ -126,4 +129,14 @@ public class ThreadManager {
             sm.mergeFiles(inputFiles);
         
 	}
+        public String toString(){
+            String out = "";
+            
+            
+            
+            
+            
+            
+            return out;
+        }
 }

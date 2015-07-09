@@ -1,9 +1,7 @@
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import org.bouncycastle.jce.provider.JDKMessageDigest;
-
 import java.io.*;
-import java.nio.file.Files;
 import java.security.MessageDigest;
 
 /**

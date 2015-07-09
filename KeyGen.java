@@ -1,4 +1,3 @@
-import it.unisa.dia.gas.jpbc.Element;
 
 //This class generates the required keys for a user.
 public class KeyGen {
@@ -13,7 +12,7 @@ public class KeyGen {
 		user.setSK(params.getzr().newRandomElement().getImmutable()); //private key
 		user.setPK(params.getgpre().powZn(user.getSK()).getImmutable());
 		user.setISK(user.getSK().invert().getImmutable()); //invert the secret key to calculate the proxy re-encryption key
-		return user;
+                return user;
 	}
 	
 	public void generateRK(User owner, User user1){
