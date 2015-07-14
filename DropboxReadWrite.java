@@ -5,15 +5,14 @@ import java.io.*;
 import java.util.Locale;
 
 public class DropboxReadWrite {
-
-		public void write() throws IOException, DbxException{
+	long numFiles;
+	DbxClient client;
+	public DropboxReadWrite() throws IOException, DbxException{
 		// Get your app key and secret from the Dropbox developers website.
         final String APP_KEY = "lv53k0y65v5634e";
         final String APP_SECRET = "65jgh1nftsyyhuq";
-
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
-
-        DbxRequestConfig config = new DbxRequestConfig("JavaTutorial/1.0",
+        DbxRequestConfig config = new DbxRequestConfig("Secure-Data-Sharing",
             Locale.getDefault().toString());
         DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
 
@@ -28,9 +27,12 @@ public class DropboxReadWrite {
         DbxAuthFinish authFinish = webAuth.finish(code);
         String accessToken = authFinish.accessToken;
 
-        DbxClient client = new DbxClient(config, accessToken);
+        client = new DbxClient(config, accessToken);
 
         System.out.println("Linked account: " + client.getAccountInfo().displayName);
+	}
+	public void write(String fin){
+		
 
         File inputFile = new File("message.txt");
         FileInputStream inputStream = new FileInputStream(inputFile);

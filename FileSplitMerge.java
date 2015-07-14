@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import com.dropbox.core.DbxException;
 
 /*This class splits one input file into multiple output files,
  * or merges multiple input files into one output file
@@ -48,15 +52,13 @@ public class FileSplitMerge {
 		bw.close();
 	}
 	
-	void splitFile(String directory) throws IOException{
+	void splitFile(String directory) throws IOException, DbxException{
 		FileReaderWriter rw = new FileReaderWriter();
 		BufferedReader br = new BufferedReader(new FileReader(filein));
+		DropboxReadWrite dropbox = new DropboxReadWrite();
 		
-		//Generate an array containing the names for the split files. Maybe let the user specify the name instead of hardcoding?
-		String[] splitFileNames = new String[(int)numFiles];
-		for(int i = 0; i < numFiles; i++){
-			splitFileNames[i] = "File" + i + ".txt";
-		}
+		//Generate an array containing the names for the split files.
+		
                 String fileName = filein.getName();
                 int pos = fileName.lastIndexOf(".");
                 String baseName = "";
@@ -71,10 +73,12 @@ public class FileSplitMerge {
                 filePath = filePath.substring(0, pathLength - pos2);
 		//Read "chunksize" bytes from the input file, write it to an output file, and repeat
 		for(int i = 0; i < numFiles; i++){
-                    
-			BufferedWriter bw = new BufferedWriter(new FileWriter(directory + baseName + i + fileExtension));
 			char[] input = rw.readFile(chunkSize, br);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(directory + baseName + i + fileExtension));
 			rw.writeFile(input, bw);
+			dropbox.write(directory + baseName + i + fileExtension);
+			Path path = Paths.get(directory + baseName + i + fileExtension);
+			Files.delete(path);
 			bw.close();
 		}
 		br.close();
