@@ -9,10 +9,10 @@ public class ParamsGen {
 	public Pairing pairing;
 	public Params params;
 	
-	public Params generate(){
+	public Params generate(int x, int y){
 		params = new Params();
 		//Get the curve parameters
-		PairingParametersGenerator pg = new TypeACurveGenerator(320, 1024);
+		PairingParametersGenerator pg = new TypeACurveGenerator(x, y);
 		PairingParameters curveParams = pg.generate();
 		this.pairing = PairingFactory.getPairing(curveParams);
 		params.setPairing(this.pairing);

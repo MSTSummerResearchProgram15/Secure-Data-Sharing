@@ -15,7 +15,7 @@ public class ThreadManager {
         FileSplitMerge sm;
         String directory;
 	
-	public ThreadManager(){
+	public ThreadManager(int keySize){
             //Generate parameters
             directory = "message";
             File dir = new File(directory);
@@ -23,7 +23,24 @@ public class ThreadManager {
             directory = directory + "\\"; // add back slash
             ParamsGen gen = new ParamsGen();
             owner = new User();
-            params = gen.generate();
+            switch(keySize){
+            	case 64: params = gen.generate(80,256);
+            			break;
+            	case 128: params = gen.generate(160, 512);
+            			 break;
+            	case 256: params = gen.generate(360, 1024);
+            			break;
+            	case 512: params = gen.generate(620, 2048);
+            			break;
+            	case 1024: params = gen.generate(1040, 4096);
+            			break;
+            	case 2048: params = gen.generate(2080, 8192);
+            			break;
+            	case 4096: params = gen.generate(4160, 16384);
+            			break;
+            			
+            	//If you choose anything greater than 512 it probably will never finish...
+            }
             key = new KeyGen(params);
             owner = key.generate(); //generate the keys for the data owner
             user1 = new User();
