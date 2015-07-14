@@ -1,4 +1,10 @@
+import it.unisa.dia.gas.jpbc.Pairing;
+import it.unisa.dia.gas.jpbc.PairingParameters;
+import it.unisa.dia.gas.plaf.jpbc.pairing.a.TypeAPairing;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,6 +34,10 @@ public class ThreadManager {
             owner = key.generate(); //generate the keys for the data owner
             user1 = new User();
             user1 = key.generate(); //generate the keys for data user 1
+        }
+        
+        public void restoreFromNetwork(){
+            // takes a socket and reads from server various values, assigning as it goes?
         }
         
         public void preprocess(File file, int blockSize) throws IOException{
@@ -73,16 +83,9 @@ public class ThreadManager {
             executor.shutdown();
             try {
                 executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-            } catch (InterruptedException e) {e.printStackTrace();}
-            System.out.println("this part works");
-            // this is here to verify the decrypt method
-            try{
-            decrypt(baseFileName, "output");
-            } catch(Exception e){
-                e.printStackTrace();
-            }
-                
+            } catch (InterruptedException e) {e.printStackTrace();}               
         }
+        
         public void decrypt(String baseFileName, String outputDirectory) throws IOException {
             File dir = new File(outputDirectory);
             dir.mkdir(); 
@@ -96,10 +99,7 @@ public class ThreadManager {
                 fout = new File(sigIn);                                 // not acutally an output....
                 Runnable worker = new Signer(fin, fout, params, owner);
                 executor.execute(worker);
-            }
-
-            System.out.println("this part works too");
-            
+            }            
             //Decrypt the file chunks
             
             // reencryption will be done on server eventually
@@ -125,18 +125,16 @@ public class ThreadManager {
             for(int i = 0; i < numFiles; i++){
                 inputFiles[i] = outputDirectory + baseFileName + i + ".txt";
             }
-            System.out.println("I got to here");
             sm.mergeFiles(inputFiles);
         
 	}
         public String toString(){
             String out = "";
-            
-            
-            
-            
-            
-            
+            out = out + params.toString();
+            out = out + owner.toString();
+            out = out + "\n";
             return out;
         }
+        
+        
 }

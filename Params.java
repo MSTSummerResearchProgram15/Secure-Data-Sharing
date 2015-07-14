@@ -3,7 +3,6 @@ import it.unisa.dia.gas.jpbc.ElementPowPreProcessing;
 import it.unisa.dia.gas.jpbc.Field;
 import it.unisa.dia.gas.jpbc.Pairing;
 
-
 public class Params {
 	private Field zr, g1, gt;
 	private Element g, k, g_k, z_k;
@@ -11,6 +10,21 @@ public class Params {
 	private Pairing pairing;
 	private int chunkSize;
 
+    public Params(Element g, Element k, Element g_k, Element z_k, ElementPowPreProcessing gpre, Pairing pairing) {
+        this.g = g;
+        this.k = k;
+        this.g_k = g_k;
+        this.z_k = z_k;
+        this.gpre = gpre;
+        this.pairing = pairing;
+        this.zr = this.pairing.getZr();
+        this.g1 = this.pairing.getG1();
+        this.gt = this.pairing.getGT();
+    }
+    
+    public Params(){}
+        
+        
 	public void setPairing(Pairing pairing){
 		this.pairing = pairing;
 	}
@@ -29,7 +43,7 @@ public class Params {
 	
 	public void setzr(Field zr){
 		this.zr = zr;
-	}
+        }
 	
 	public void setg(Element g){
 		this.g = g;
@@ -89,6 +103,27 @@ public class Params {
 	
 	public int getFileChunkSize(){
 		return this.chunkSize;
+	}
+	
+        // to byte[]        
+        public byte[] getgBytes(){
+		return this.g.toBytes();
+	}
+	
+	public byte[] getgpreBytes(){
+		return this.gpre.toBytes();
+	}
+	
+	public byte[] getkBytes(){
+		return this.k.toBytes();
+	}
+	
+	public byte[] getg_kBytes(){
+		return this.g_k.toBytes();
+	}
+	
+	public byte[] getz_kBytes(){
+		return this.z_k.toBytes();
 	}
 	
 }

@@ -1,4 +1,5 @@
 import it.unisa.dia.gas.jpbc.Element;
+import it.unisa.dia.gas.jpbc.Field;
 import it.unisa.dia.gas.jpbc.Pairing;
 import org.bouncycastle.jce.provider.JDKMessageDigest;
 import java.io.*;
@@ -11,7 +12,7 @@ import java.security.MessageDigest;
  */
 public class Signer implements Runnable {
 
-    Pairing pairing;
+    Field g1;
     Element sysParams;
     Element publicKey;
     Element privateKey;
@@ -20,7 +21,7 @@ public class Signer implements Runnable {
 
     // constructor
     public Signer(File input, File output, Params params, User user){
-        this.pairing = params.getPairing();
+        this.g1 = params.getg1();
         this.sysParams = params.getg();
         this.publicKey = user.getPK();
         this.privateKey = user.getSK();
@@ -59,7 +60,7 @@ public class Signer implements Runnable {
     public Element mapValue(byte[] value){
         Element map;
         byte[] hash = hash(value);
-        map = pairing.getG1().newElement().setFromHash(hash, 0, hash.length);
+        map = g1.newElement().setFromHash(hash, 0, hash.length);
         return map;
     }
 
