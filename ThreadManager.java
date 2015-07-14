@@ -24,8 +24,6 @@ public class ThreadManager {
             ParamsGen gen = new ParamsGen();
             owner = new User();
             switch(keySize){
-            	case 64: params = gen.generate(80,256);
-            		break;
             	case 128: params = gen.generate(160, 512);
             		break;
             	case 256: params = gen.generate(360, 1024);
@@ -45,6 +43,7 @@ public class ThreadManager {
             owner = key.generate(); //generate the keys for the data owner
             user1 = new User();
             user1 = key.generate(); //generate the keys for data user 1
+            System.out.println("The PK size is: " + owner.getPK().getLengthInBytes());
         }
         
         public void preprocess(File file, int blockSize) throws IOException{
