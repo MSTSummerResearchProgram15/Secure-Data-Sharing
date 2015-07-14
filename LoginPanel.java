@@ -26,7 +26,7 @@ public class LoginPanel extends javax.swing.JPanel {
         userSelectBox.removeAllItems();
         userSelectBox.addItem(user);
         userSelectBox.addItem(owner);
-        ThreadManager tm = new ThreadManager();
+        //ThreadManager tm = new ThreadManager();
     }
 
     /**

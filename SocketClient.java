@@ -31,7 +31,20 @@ public class SocketClient {
         
             MyClient = new Socket("localhost", Portnumber);
             
+            input = new DataInputStream(MyClient.getInputStream());
+            output = new DataOutputStream(MyClient.getOutputStream());
+            
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
+            int num = input.readInt(); // example server code
+            switch(num){
+                case 1: // login
+                    output.write(num);
+                    int user = input.read();
+                    byte[] password = new byte[1024];
+                    input.readFully(password);
+                    // check password
+                    
+            } // end example server code
             
             MyClient.close();
         } catch (IOException ex) {
