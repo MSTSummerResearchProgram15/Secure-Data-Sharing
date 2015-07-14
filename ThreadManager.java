@@ -25,19 +25,19 @@ public class ThreadManager {
             owner = new User();
             switch(keySize){
             	case 64: params = gen.generate(80,256);
-            			break;
+            		break;
             	case 128: params = gen.generate(160, 512);
-            			 break;
+            		break;
             	case 256: params = gen.generate(360, 1024);
-            			break;
+            		break;
             	case 512: params = gen.generate(620, 2048);
-            			break;
+            		break;
             	case 1024: params = gen.generate(1040, 4096);
-            			break;
+            		break;
             	case 2048: params = gen.generate(2080, 8192);
-            			break;
+            		break;
             	case 4096: params = gen.generate(4160, 16384);
-            			break;
+            		break;
             			
             	//If you choose anything greater than 512 it probably will never finish...
             }
