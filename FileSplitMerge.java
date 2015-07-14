@@ -1,11 +1,9 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 
 /*This class splits one input file into multiple output files,
  * or merges multiple input files into one output file

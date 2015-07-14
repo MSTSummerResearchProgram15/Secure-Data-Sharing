@@ -1,10 +1,4 @@
-import it.unisa.dia.gas.jpbc.Pairing;
-import it.unisa.dia.gas.jpbc.PairingParameters;
-import it.unisa.dia.gas.plaf.jpbc.pairing.a.TypeAPairing;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,6 +45,11 @@ public class ThreadManager {
             user1 = new User();
             user1 = key.generate(); //generate the keys for data user 1
             System.out.println("The PK size is: " + owner.getPK().getLengthInBytes());
+        }
+        
+        public ThreadManager(){
+        
+        
         }
         
         public void restoreFromNetwork(){
@@ -144,14 +143,6 @@ public class ThreadManager {
             }
             sm.mergeFiles(inputFiles);
         
-	}
-        public String toString(){
-            String out = "";
-            out = out + params.toString();
-            out = out + owner.toString();
-            out = out + "\n";
-            return out;
-        }
-        
+	}        
         
 }
