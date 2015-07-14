@@ -20,6 +20,7 @@ public class ThreadManager {
         KeyGen key;
         FileSplitMerge sm;
         String directory;
+        boolean isOwner;
 	
 	public ThreadManager(int keySize){
             //Generate parameters

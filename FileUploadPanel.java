@@ -113,12 +113,15 @@ public class FileUploadPanel extends javax.swing.JPanel {
 
         buttonGroup2.add(size1024);
         size1024.setText("1024 bit");
+        size1024.setEnabled(false);
 
         buttonGroup2.add(size2048);
         size2048.setText("2048 bit");
+        size2048.setEnabled(false);
 
         buttonGroup2.add(size4096);
         size4096.setText("4096 bit");
+        size4096.setEnabled(false);
 
         buttonGroup3.add(BLSButton);
         BLSButton.setSelected(true);
@@ -314,7 +317,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
             String signatureType = "BLS";
             if(RSAButton.isSelected()){signatureType = "RSA";}
             
-            ThreadManager up = new ThreadManager(keySize);
+            ThreadManager up = new ThreadManager(keySize); // move to login, then pass around instance
             
             try {               
                 up.preprocess(selectedFile, blockSize);
