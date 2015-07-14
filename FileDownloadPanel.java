@@ -191,7 +191,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_fileListValueChanged
 
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
-        ThreadManager dn = new ThreadManager();
+        ThreadManager dn = new ThreadManager(); //I don't know what to do with this? ThreadManager needs a parameter keySize now
         
         
         //dn.decrypt("LoremIpsum");

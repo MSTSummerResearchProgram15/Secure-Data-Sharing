@@ -314,10 +314,10 @@ public class FileUploadPanel extends javax.swing.JPanel {
             String signatureType = "BLS";
             if(RSAButton.isSelected()){signatureType = "RSA";}
             
-            ThreadManager up = new ThreadManager();
+            ThreadManager up = new ThreadManager(keySize);
             
             try {               
-                up.preprocess(selectedFile, blockSize); // still needs to pass keysize
+                up.preprocess(selectedFile, blockSize);
             } catch (IOException ex) {
                JOptionPane.showMessageDialog(this, "File not found");
             }
