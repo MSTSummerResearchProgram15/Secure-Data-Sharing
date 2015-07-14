@@ -19,6 +19,7 @@ public class Decryption implements Runnable{
 	BufferedWriter bw;
 	InputStream in;
 	User owner, user1;
+	Element ialpha;
 	
 	public Decryption(File fin, File fout, Params params, User owner, User user1){
 		this.fin = fin;
@@ -55,15 +56,12 @@ public class Decryption implements Runnable{
 			cipher2 = bytes.readFile(ciphertextSize, in);
 		} catch (IOException e) {}
 		
-		c1 = params.getg1().newRandomElement();
+		ialpha = params.getg1().newRandomElement();
 		c2 = params.getgt().newRandomElement();
 		
-		c1.setFromBytes(cipher1);
+		ialpha.setFromBytes(cipher1);
 		c2.setFromBytes(cipher2);
 		
-		//Begin decryption here
-		Element reencrypt = params.getPairing().pairing(c1,user1.getReEncryptKey());
-		Element ialpha = reencrypt.powZn(user1.getISK());
 		decrypt = c2.div(ialpha);
 		result = new byte[decrypt.getLengthInBytes()];
 		result = decrypt.toBytes();
