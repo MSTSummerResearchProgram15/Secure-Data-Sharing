@@ -48,8 +48,6 @@ public class ThreadManager {
         }
         
         public ThreadManager(){
-        
-        
         }
         
         public void restoreFromNetwork(){
