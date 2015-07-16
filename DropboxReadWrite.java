@@ -9,8 +9,8 @@ public class DropboxReadWrite {
 	DbxClient client;
 	public DropboxReadWrite() throws IOException, DbxException{
 		// Get your app key and secret from the Dropbox developers website.
-        final String APP_KEY = "lv53k0y65v5634e";
-        final String APP_SECRET = "65jgh1nftsyyhuq";
+        final String APP_KEY = "ADD KEY";
+        final String APP_SECRET = "ADD KEY";
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
         DbxRequestConfig config = new DbxRequestConfig("Secure-Data-Sharing",
             Locale.getDefault().toString());
