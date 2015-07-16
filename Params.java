@@ -15,6 +15,9 @@ public class Params {
     private int chunkSize;
     private PairingParameters curveParams;
 
+    public Params(byte[] g, byte[] k, byte[] g_k, byte[] z_k, PairingParameters curveParams){
+        
+    }
     public Params(Element g, Element k, Element g_k, Element z_k, PairingParameters curveParams) {
         this.g = g;
         this.k = k;
