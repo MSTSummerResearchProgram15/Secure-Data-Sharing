@@ -9,8 +9,8 @@ public class DropboxReadWrite {
 	DbxClient client;
 	public DropboxReadWrite() throws IOException, DbxException{
 		// Get your app key and secret from the Dropbox developers website.
-        final String APP_KEY = "ADD KEY";
-        final String APP_SECRET = "ADD KEY";
+        final String APP_KEY = "s96ghytmr7e7bfm";
+        final String APP_SECRET = "8n7eb6a9fisdwxs";
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
         DbxRequestConfig config = new DbxRequestConfig("Secure-Data-Sharing",
             Locale.getDefault().toString());
@@ -48,22 +48,5 @@ public class DropboxReadWrite {
         } finally {
             inputStream.close();
         }
-
-
-        DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
-        System.out.println("Files in the root path:");
-        for (DbxEntry child : listing.children) {
-            System.out.println("	" + child.name + ": " + child.toString());
-        }
-
-        FileOutputStream outputStream = new FileOutputStream("magnum-opus.txt");
-        try {
-            DbxEntry.File downloadedFile = client.getFile("/magnum-opus.txt", null,
-                outputStream);
-            System.out.println("Metadata: " + downloadedFile.toString());
-        } finally {
-            outputStream.close();
-        }
-
     }
 }
