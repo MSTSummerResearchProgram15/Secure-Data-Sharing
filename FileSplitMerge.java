@@ -5,6 +5,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import com.dropbox.core.DbxException;
+
 /*This class splits one input file into multiple output files,
  * or merges multiple input files into one output file
  */
@@ -46,15 +52,14 @@ public class FileSplitMerge {
 		bw.close();
 	}
 	
-	void splitFile(String directory) throws IOException{
+	void splitFile(String directory) throws DbxException, IOException{
 		FileReaderWriter rw = new FileReaderWriter();
-		BufferedReader br = new BufferedReader(new FileReader(filein));
+		BufferedReader br;
+		br = new BufferedReader(new FileReader(filein));
+		DropboxReadWrite dropbox = new DropboxReadWrite();
 		
-		//Generate an array containing the names for the split files. Maybe let the user specify the name instead of hardcoding?
-		String[] splitFileNames = new String[(int)numFiles];
-		for(int i = 0; i < numFiles; i++){
-			splitFileNames[i] = "File" + i + ".txt";
-		}
+		//Generate an array containing the names for the split files.
+		
                 String fileName = filein.getName();
                 int pos = fileName.lastIndexOf(".");
                 String baseName = "";
@@ -69,12 +74,26 @@ public class FileSplitMerge {
                 filePath = filePath.substring(0, pathLength - pos2);
 		//Read "chunksize" bytes from the input file, write it to an output file, and repeat
 		for(int i = 0; i < numFiles; i++){
-                    
-			BufferedWriter bw = new BufferedWriter(new FileWriter(directory + baseName + i + fileExtension));
+			try{
 			char[] input = rw.readFile(chunkSize, br);
-			rw.writeFile(input, bw);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(baseName + i + fileExtension));
+			bw.write(input);
+			System.out.println("File written");
 			bw.close();
+			dropbox.write(baseName + i + fileExtension, i);
+			Path path = Paths.get(baseName + i + fileExtension);
+			System.out.println(path);
+			System.out.println(Files.deleteIfExists(path));
+			}
+			catch(IOException e){
+				e.printStackTrace();
+			}
 		}
-		br.close();
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
