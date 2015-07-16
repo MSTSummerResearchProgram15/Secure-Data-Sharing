@@ -5,15 +5,14 @@ import java.io.*;
 import java.util.Locale;
 
 public class DropboxReadWrite {
-
-		public void write() throws IOException, DbxException{
+	long numFiles;
+	DbxClient client;
+	public DropboxReadWrite() throws IOException, DbxException{
 		// Get your app key and secret from the Dropbox developers website.
-        final String APP_KEY = "lv53k0y65v5634e";
-        final String APP_SECRET = "65jgh1nftsyyhuq";
-
+        final String APP_KEY = "s96ghytmr7e7bfm";
+        final String APP_SECRET = "8n7eb6a9fisdwxs";
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
-
-        DbxRequestConfig config = new DbxRequestConfig("JavaTutorial/1.0",
+        DbxRequestConfig config = new DbxRequestConfig("Secure-Data-Sharing",
             Locale.getDefault().toString());
         DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
 
@@ -28,33 +27,26 @@ public class DropboxReadWrite {
         DbxAuthFinish authFinish = webAuth.finish(code);
         String accessToken = authFinish.accessToken;
 
-        DbxClient client = new DbxClient(config, accessToken);
+        client = new DbxClient(config, accessToken);
 
         System.out.println("Linked account: " + client.getAccountInfo().displayName);
-
-        File inputFile = new File("message.txt");
+	}
+	public void write(String fin, int i) throws DbxException, IOException{
+		int pos = fin.lastIndexOf(".");
+        String baseName = "";
+        if (pos > 0) {
+        baseName = fin.substring(0, pos);
+        }
+        
+        File inputFile = new File(fin);
         FileInputStream inputStream = new FileInputStream(inputFile);
+        System.out.println(baseName);
         try {
-            DbxEntry.File uploadedFile = client.uploadFile("/Folder/magnum-opus.txt",
+            DbxEntry.File uploadedFile = client.uploadFile("/Messages/File" + i + ".txt",
                 DbxWriteMode.add(), inputFile.length(), inputStream);
             System.out.println("Uploaded: " + uploadedFile.toString());
         } finally {
             inputStream.close();
-        }
-
-        DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
-        System.out.println("Files in the root path:");
-        for (DbxEntry child : listing.children) {
-            System.out.println("	" + child.name + ": " + child.toString());
-        }
-
-        FileOutputStream outputStream = new FileOutputStream("magnum-opus.txt");
-        try {
-            DbxEntry.File downloadedFile = client.getFile("/magnum-opus.txt", null,
-                outputStream);
-            System.out.println("Metadata: " + downloadedFile.toString());
-        } finally {
-            outputStream.close();
         }
     }
 }

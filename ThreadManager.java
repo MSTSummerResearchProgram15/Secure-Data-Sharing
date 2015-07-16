@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import com.dropbox.core.DbxException;
+
 
 public class ThreadManager {
 	public static char[] array;
@@ -47,6 +49,7 @@ public class ThreadManager {
             System.out.println("The PK size is: " + owner.getPK().getLengthInBytes());
         }
         
+
         public ThreadManager(){
         }
         
@@ -54,7 +57,8 @@ public class ThreadManager {
             // takes a socket and reads from server various values, assigning as it goes?
         }
         
-        public void preprocess(File file, int blockSize) throws IOException{
+        public void preprocess(File file, int blockSize) throws IOException, DbxException{
+
             //Preprocessing - split file into chunks
             int chunkSize = blockSize; //desired size of file chunks, probably will only allow 128, 256, and 512 in future versions
             File fin = file;
