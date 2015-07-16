@@ -31,18 +31,24 @@ public class DropboxReadWrite {
 
         System.out.println("Linked account: " + client.getAccountInfo().displayName);
 	}
-	public void write(String fin){
-		
-
-        File inputFile = new File("message.txt");
+	public void write(String fin, int i) throws DbxException, IOException{
+		int pos = fin.lastIndexOf(".");
+        String baseName = "";
+        if (pos > 0) {
+        baseName = fin.substring(0, pos);
+        }
+        
+        File inputFile = new File(fin);
         FileInputStream inputStream = new FileInputStream(inputFile);
+        System.out.println(baseName);
         try {
-            DbxEntry.File uploadedFile = client.uploadFile("/Folder/magnum-opus.txt",
+            DbxEntry.File uploadedFile = client.uploadFile("/Messages/File" + i + ".txt",
                 DbxWriteMode.add(), inputFile.length(), inputStream);
             System.out.println("Uploaded: " + uploadedFile.toString());
         } finally {
             inputStream.close();
         }
+
 
         DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
         System.out.println("Files in the root path:");
@@ -58,5 +64,6 @@ public class DropboxReadWrite {
         } finally {
             outputStream.close();
         }
+
     }
 }

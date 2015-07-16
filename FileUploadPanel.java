@@ -3,10 +3,13 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.dropbox.core.DbxException;
 
 
 /*
@@ -147,7 +150,12 @@ public class FileUploadPanel extends javax.swing.JPanel {
         UploadButton.setText("Upload File");
         UploadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UploadButtonActionPerformed(evt);
+                try {
+					UploadButtonActionPerformed(evt);
+				} catch (DbxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -305,7 +313,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ChooseFileButtonActionPerformed
 
-    private void UploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UploadButtonActionPerformed
+    private void UploadButtonActionPerformed(java.awt.event.ActionEvent evt) throws DbxException {//GEN-FIRST:event_UploadButtonActionPerformed
         if(selectedFile == null){
             noFileSelectedLabel.setVisible(true);
         } else {
@@ -319,7 +327,8 @@ public class FileUploadPanel extends javax.swing.JPanel {
             try {               
                 up.preprocess(selectedFile, blockSize);
             } catch (IOException ex) {
-               JOptionPane.showMessageDialog(this, "File not found");
+              JOptionPane.showMessageDialog(this, "File not found");
+               ex.printStackTrace();
             }
             String fileName = selectedFile.getName();
             int pos = fileName.lastIndexOf(".");
