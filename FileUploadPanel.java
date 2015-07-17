@@ -345,7 +345,12 @@ public class FileUploadPanel extends javax.swing.JPanel {
             String filePath = selectedFile.getPath();
             int pathLength = filePath.length();
             filePath = filePath.substring(0, pathLength - pos2);
-            up.Encrypt(filePath, baseName, fileExtension);
+            try {
+				up.Encrypt(filePath, baseName, fileExtension);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
     }//GEN-LAST:event_UploadButtonActionPerformed
 

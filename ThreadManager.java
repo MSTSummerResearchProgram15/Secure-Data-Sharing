@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +42,8 @@ public class ThreadManager {
             		break;
             	case 4096: params = gen.generate(4160, 16384);
             		break;
-            			
+            	default: params = gen.generate(160, 512);
+            		break;	
             	//If you choose anything greater than 512 it probably will never finish...
             }
             key = new KeyGen(params);
@@ -74,28 +78,26 @@ public class ThreadManager {
         }
         
         // include "." in the extension
-        public void Encrypt(String filePath, String baseFileName, String extension){
+        public void Encrypt(String filePath, String baseFileName, String extension) throws IOException, DbxException{
+    		DropboxReadWrite dp = new DropboxReadWrite();
             //Encrypt the file chunks
             ExecutorService executor = Executors.newFixedThreadPool(4);
             for(int i = 0; i < numFiles; i++){
-                String fileIn = directory + baseFileName + i + extension;
+                String fileIn = baseFileName + i + extension;
                 fin = new File(fileIn);
                 String fileOut = directory + baseFileName + i + ".encrypted";
                 fout = new File(fileOut);
-                Runnable worker = new Encryption(fin, fout, params, owner);
+                Runnable worker = new Encryption(fin, fout, params, owner, dp, i, fileIn);
                 executor.execute(worker);
             } 
-            
-            FileDeleter fd = new FileDeleter(filePath, baseFileName, extension, numFiles);
-            fd.delete(); // deletes plaintext split files
-
+ 
             // sign file chunks
             for(int i = 0; i < numFiles; i++){
-                String fileIn = directory + baseFileName + i + ".encrypted";
+                String fileIn = baseFileName + i + ".txt";
                 fin = new File(fileIn);
                 String fileOut = directory + baseFileName + i + ".encrypted" + ".signature";
                 fout = new File(fileOut);
-                Runnable worker = new Signer(fin, fout, params, owner);
+                Runnable worker = new Signer(fin, fout, params, owner, i, dp);
                 executor.execute(worker);
             }
             executor.shutdown();

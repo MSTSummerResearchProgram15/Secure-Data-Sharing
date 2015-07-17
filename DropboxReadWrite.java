@@ -37,7 +37,6 @@ public class DropboxReadWrite {
         if (pos > 0) {
         baseName = fin.substring(0, pos);
         }
-        
         File inputFile = new File(fin);
         FileInputStream inputStream = new FileInputStream(inputFile);
         System.out.println(baseName);
