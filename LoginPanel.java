@@ -114,6 +114,7 @@ public class LoginPanel extends javax.swing.JPanel {
         
         // get params, owner, and key
         
+        
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
         if( userSelectBox.getSelectedItem().equals("Data Owner")){isOwner = true;}
