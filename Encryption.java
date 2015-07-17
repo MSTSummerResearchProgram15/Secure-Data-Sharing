@@ -1,4 +1,5 @@
 import it.unisa.dia.gas.jpbc.Element;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import com.dropbox.core.DbxException;
 
 
 public class Encryption implements Runnable{
@@ -17,11 +22,17 @@ public class Encryption implements Runnable{
 	Params params;
 	public Element c1, c2, reencrypt;
 	User owner;
-	public Encryption(File fin, File fout, Params params, User owner){
+	DropboxReadWrite dp;
+	int i;
+	String fileIn;
+	public Encryption(File fin, File fout, Params params, User owner, DropboxReadWrite dp, int i, String fileIn){
 		this.fin = fin;
 		this.fout = fout;
 		this.params = params;
 		this.owner = owner;
+		this.dp = dp;
+		this.i = i;
+		this.fileIn = fileIn;
 	}
 		
 	public void run(){
@@ -36,12 +47,11 @@ public class Encryption implements Runnable{
 		} catch (FileNotFoundException e4) {e4.printStackTrace();}
 		
 		try {
-			out = new FileOutputStream(fout, true);
+			out = new FileOutputStream(fin);
 		} catch (FileNotFoundException e2) {e2.printStackTrace();}
 		
 		int blockSize = (int)length; //How many bytes of file to encrypt at a time
 		long blocks = (long)Math.ceil((double)length/(double)blockSize); //How many blocks the file will be encrypted in
-		//for(int i = 0; i < blocks; i++){
 			array = new char[blockSize];
 			try {
 				array = bytes.readFile(blockSize, br); //Read the plaintext file into char array
@@ -65,18 +75,15 @@ public class Encryption implements Runnable{
 			try {
 				bytes.writeFile(result, out); //write the result to output file
 			} catch (IOException e1) {e1.printStackTrace();}
-		//}
+			
 		
+			
 		try {
 			br.close();
 		} catch (IOException e) {e.printStackTrace();}
 		
 		try {
 			out.close();
-		} catch (IOException e) {e.printStackTrace();}
-		
-		try {
-			Files.delete(fin.toPath());
 		} catch (IOException e) {e.printStackTrace();}
 		
 	}

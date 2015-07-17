@@ -1,7 +1,14 @@
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Field;
+
 import org.bouncycastle.jce.provider.JDKMessageDigest;
+
+import com.dropbox.core.DbxException;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 
 /**
@@ -17,15 +24,19 @@ public class Signer implements Runnable {
     Element privateKey;
     File output;
     File input;
+    int i;
+    DropboxReadWrite dp;
 
     // constructor
-    public Signer(File input, File output, Params params, User user){
+    public Signer(File input, File output, Params params, User user, int i, DropboxReadWrite dp){
         this.g1 = params.getg1();
         this.sysParams = params.getg();
         this.publicKey = user.getPK();
         this.privateKey = user.getSK();
         this.output = output;
         this.input = input;
+        this.i = i;
+        this.dp = dp;
     }
 
     //run
@@ -34,17 +45,25 @@ public class Signer implements Runnable {
         OutputStream os;
         try {
             is = new FileInputStream(input);
-            os = new FileOutputStream(output);
             byte[] message = new byte[is.available()];
             is.read(message);
-            os.write(generateSignature(message).toBytes());
             is.close();
+            os = new FileOutputStream(input);
+            os.write(generateSignature(message).toBytes());
             os.close();
+			dp.write(input.getName(), i);
+			try {
+				System.out.println(Files.deleteIfExists(input.toPath()));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
         }
-
+        catch(DbxException e){
+        	e.printStackTrace();
+        }
     }
 
     // generates the signature using a value and the private key (uses hash of value)
