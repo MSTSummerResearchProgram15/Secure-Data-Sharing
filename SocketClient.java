@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 public class SocketClient {
 
     Socket MyClient;
+    DataOutputStream output = null;
+    DataInputStream input = null;
 
     public SocketClient() {
         BufferedReader br;
-
         int Portnumber;
+        
         try {
             //Read the port number from a text file
             br = new BufferedReader(new FileReader("portnumber.txt"));
@@ -26,6 +28,10 @@ public class SocketClient {
             //Open the socket
 
             MyClient = new Socket("localhost", Portnumber);
+            
+            output = new DataOutputStream(MyClient.getOutputStream());
+            input = new DataInputStream(MyClient.getInputStream());
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,15 +39,13 @@ public class SocketClient {
 
     public boolean login(String usr, String pw) {
 
-        DataOutputStream output = null;
-        DataInputStream input = null;
+        
         boolean a = true;
         int result;
 
         try {
 
-            output = new DataOutputStream(MyClient.getOutputStream());
-            input = new DataInputStream(MyClient.getInputStream());
+            
 
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Position 2");
@@ -60,7 +64,7 @@ public class SocketClient {
                 a = false;
             }
 
-            MyClient.close();
+            
         } catch (IOException ex) {
             Logger.getLogger(SocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }

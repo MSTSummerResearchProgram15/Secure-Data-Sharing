@@ -112,9 +112,6 @@ public class LoginPanel extends javax.swing.JPanel {
         boolean a = false;
         String usernamevalue = UserNameText.getText();
         String username = "username:"+ usernamevalue;
-
-
-        
         
         a = client.login(username, password);
 

@@ -1,6 +1,9 @@
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /*
@@ -151,6 +154,11 @@ public class HomePanel extends javax.swing.JPanel {
         JPanel loginPanel = new LoginPanel(client);
         frame[0].add(loginPanel , BorderLayout.CENTER);
         frame[0].pack();
+        try {
+            client.MyClient.close();
+        } catch (IOException ex) {
+            Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void changePermissionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermissionsButtonActionPerformed
