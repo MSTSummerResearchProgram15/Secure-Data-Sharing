@@ -47,8 +47,6 @@ public class LoginPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Password: ");
 
-        PasswordText.setText("jPasswordField1");
-
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
