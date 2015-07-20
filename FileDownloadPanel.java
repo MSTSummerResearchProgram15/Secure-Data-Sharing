@@ -2,7 +2,6 @@
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;

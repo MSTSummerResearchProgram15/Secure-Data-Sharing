@@ -19,7 +19,7 @@ public class HomePanel extends javax.swing.JPanel {
     SocketClient client;
     /**
      * Creates new form HomePanel
-     * @param isOwner
+     * 
      */
     public HomePanel(ThreadManager tm, SocketClient client) {
         this.tm = tm;
