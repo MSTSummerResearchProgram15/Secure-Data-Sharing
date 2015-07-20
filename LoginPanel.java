@@ -108,10 +108,10 @@ public class LoginPanel extends javax.swing.JPanel {
         //convert Password to string
         //badLoginLabel.setVisible(false);
         String passwordvalue = new String(PasswordText.getPassword());
-        String password = "password:"+ passwordvalue;
+        String password = "password:"+ passwordvalue + "\n";
         boolean a = false;
         String usernamevalue = UserNameText.getText();
-        String username = "username:"+ usernamevalue;
+        String username = "username:"+ usernamevalue + "\n";
         System.out.println("let's attempt to log in!");
         a = client.login(username, password);
         System.out.println("I'm done logging in!");
