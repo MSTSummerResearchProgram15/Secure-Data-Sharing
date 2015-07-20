@@ -117,7 +117,7 @@ public class ThreadManager {
                 fin = new File(fileIn);
                 String sigIn = directory + baseFileName + i + ".encrypted" + ".signature";
                 fout = new File(sigIn);                                 // not acutally an output....
-                Runnable worker = new Signer(fin, fout, params, owner);
+                Runnable worker = new Verifier(fin, fout, params, owner);
                 executor.execute(worker);
             }            
             //Decrypt the file chunks

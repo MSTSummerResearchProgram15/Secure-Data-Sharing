@@ -145,6 +145,16 @@ public class LoginPanel extends javax.swing.JPanel {
         }
         
         
+<<<<<<< HEAD
+=======
+        
+        Frame[] frame = FoundationFrame.getFrames();
+        frame[0].remove(this);
+        if( userSelectBox.getSelectedItem().equals("Data Owner")){isOwner = true;}
+        JPanel homePanel = new HomePanel(isOwner);
+        frame[0].add(homePanel , BorderLayout.CENTER);
+        frame[0].pack();
+>>>>>>> origin/master
     }//GEN-LAST:event_LogInButtonActionPerformed
 
     private void UserNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameTextActionPerformed

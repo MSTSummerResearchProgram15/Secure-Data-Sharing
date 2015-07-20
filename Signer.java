@@ -59,7 +59,6 @@ public class Signer implements Runnable {
 			}
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(-1);
         }
         catch(DbxException e){
         	e.printStackTrace();
