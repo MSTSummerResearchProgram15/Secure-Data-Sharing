@@ -112,17 +112,19 @@ public class LoginPanel extends javax.swing.JPanel {
         boolean a = false;
         String usernamevalue = UserNameText.getText();
         String username = "username:"+ usernamevalue;
-        
+        System.out.println("let's attempt to log in!");
         a = client.login(username, password);
-
+        System.out.println("I'm done logging in!");
+        a = true;
         if( a == true)
         {
+            System.out.println("success!");
             
             // get instance of threadmanager
-            
+            tm = new ThreadManager();
             
             // temp
-            boolean isOwner = true; // temp line to make the rest of it work
+            tm.setIsOwner(true); // temp line to make the rest of it work
             // temp
             
             Frame[] frame = FoundationFrame.getFrames();
@@ -133,6 +135,7 @@ public class LoginPanel extends javax.swing.JPanel {
         }
         else
         {
+            System.out.println("It didn't work though");
            badLoginLabel.setVisible(true);
 
         }

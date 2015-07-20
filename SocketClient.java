@@ -38,15 +38,11 @@ public class SocketClient {
     }
 
     public boolean login(String usr, String pw) {
-
         
         boolean a = true;
         int result;
 
         try {
-
-            
-
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Position 2");
 
