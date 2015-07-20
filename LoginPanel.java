@@ -191,12 +191,6 @@ public class LoginPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-<<<<<<< HEAD
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel label2;
-    private javax.swing.JComboBox userSelectBox;
-=======
->>>>>>> 0a47a5116b627deea5755a75b0e58666c27f5274
     // End of variables declaration//GEN-END:variables
 
     }
