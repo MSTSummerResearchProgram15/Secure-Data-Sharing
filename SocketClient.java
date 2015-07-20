@@ -64,7 +64,6 @@ public class SocketClient {
                 a = false;
             }
 
-            MyClient.close();
         } catch (IOException ex) {
             Logger.getLogger(SocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }
