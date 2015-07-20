@@ -15,15 +15,16 @@ import javax.swing.JPanel;
  */
 public class HomePanel extends javax.swing.JPanel {
 
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     /**
      * Creates new form HomePanel
      * @param isOwner
      */
-    public HomePanel(boolean isOwner) {
-        this.isOwner = isOwner;
+    public HomePanel(ThreadManager tm, SocketClient client) {
+        this.tm = tm;
         initComponents();
-        if(!isOwner){
+        if(!tm.getIsOwner()){
             registerButton.setEnabled(false);
             uploadFileButton.setEnabled(false);
             changePermissionsButton.setEnabled(false);
@@ -131,7 +132,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void uploadFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFileButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel uploadPanel = new FileUploadPanel(isOwner, null);
+        JPanel uploadPanel = new FileUploadPanel(tm, client, null);
         frame[0].add(uploadPanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_uploadFileButtonActionPerformed
@@ -139,7 +140,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void downloadFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadFileButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel downloadPanel = new FileDownloadPanel(isOwner);
+        JPanel downloadPanel = new FileDownloadPanel(tm, client);
         frame[0].add(downloadPanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_downloadFileButtonActionPerformed
@@ -147,7 +148,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel loginPanel = new LoginPanel();
+        JPanel loginPanel = new LoginPanel(client);
         frame[0].add(loginPanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_logOutButtonActionPerformed
@@ -155,7 +156,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void changePermissionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePermissionsButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel loginPanel = new PermissionsPanel(isOwner);
+        JPanel loginPanel = new PermissionsPanel(tm, client);
         frame[0].add(loginPanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_changePermissionsButtonActionPerformed
@@ -163,7 +164,7 @@ public class HomePanel extends javax.swing.JPanel {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
          Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel signupPanel = new SignupPanel(isOwner);
+        JPanel signupPanel = new SignupPanel(tm, client);
         frame[0].add( signupPanel, BorderLayout.CENTER);
         frame[0].pack();    }//GEN-LAST:event_registerButtonActionPerformed
 

@@ -17,13 +17,15 @@ import javax.swing.JPanel;
  */
 public class PermissionsPanel extends javax.swing.JPanel {
 
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     File selectedFile;
     /**
      * Creates new form PermissionsPanel
      */
-    public PermissionsPanel(boolean isOwner) {
-        this.isOwner = isOwner;
+    public PermissionsPanel(ThreadManager tm, SocketClient client) {
+        this.tm = tm;
+        this.client = client;
         initComponents();
         DefaultListModel lm = new DefaultListModel();
         fileList.setModel(lm);
@@ -104,7 +106,7 @@ public class PermissionsPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel homePanel = new HomePanel(isOwner);
+        JPanel homePanel = new HomePanel(tm, client);
         frame[0].add(homePanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -112,7 +114,7 @@ public class PermissionsPanel extends javax.swing.JPanel {
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel homePanel = new ManageFilePermissionsPanel(isOwner,(File)fileList.getSelectedValue()); // this may not work...
+        JPanel homePanel = new ManageFilePermissionsPanel(tm, client,(File)fileList.getSelectedValue()); // this may not work...
         frame[0].add(homePanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_selectButtonActionPerformed

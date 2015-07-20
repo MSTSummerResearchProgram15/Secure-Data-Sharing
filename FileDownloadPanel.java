@@ -19,12 +19,14 @@ import javax.swing.JPanel;
  */
 public class FileDownloadPanel extends javax.swing.JPanel {
 
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     /**
      * Creates new form FileDownloadPanel
      */
-    public FileDownloadPanel(boolean isOwner) {
-        this.isOwner = isOwner;
+    public FileDownloadPanel(ThreadManager tm, SocketClient client) {
+        this.tm = tm;
+        this.client = client;
         initComponents();
         DefaultListModel lm = new DefaultListModel();
         
@@ -176,7 +178,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel homePanel = new HomePanel(isOwner);
+        JPanel homePanel = new HomePanel(tm, client);
         frame[0].add(homePanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed

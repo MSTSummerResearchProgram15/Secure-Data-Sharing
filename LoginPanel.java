@@ -16,11 +16,13 @@ import javax.swing.JPanel;
 public class LoginPanel extends javax.swing.JPanel {
 
     ThreadManager tm;
+    SocketClient client;
     /**
      * Creates new form LoginPanel
      */
-    public LoginPanel() {
+    public LoginPanel(SocketClient client) {
         initComponents();
+        this.client = client;
         badLoginLabel.setVisible(false);
     }
 
@@ -110,9 +112,9 @@ public class LoginPanel extends javax.swing.JPanel {
         boolean a = false;
         String usernamevalue = UserNameText.getText();
         String username = "username:"+ usernamevalue;
-              
 
-        SocketClient client = new SocketClient();
+
+        
         
         a = client.login(username, password);
         
@@ -123,12 +125,12 @@ public class LoginPanel extends javax.swing.JPanel {
             
             
             // temp
-            boolean isOwner = true; // temp
+            boolean isOwner = true; // temp line to make the rest of it work
             // temp
             
             Frame[] frame = FoundationFrame.getFrames();
             frame[0].remove(this);
-            JPanel homePanel = new HomePanel(isOwner);
+            JPanel homePanel = new HomePanel(tm, client);
             frame[0].add(homePanel , BorderLayout.CENTER);
             frame[0].pack(); 
         }

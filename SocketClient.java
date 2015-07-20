@@ -5,21 +5,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SocketClient {
-    
-    public boolean login(String usr, String pw) {
-
+    Socket MyClient;
+    public SocketClient(){
         BufferedReader br;
-        Socket MyClient;
-        int Portnumber;
-        DataOutputStream output = null;
-        DataInputStream input = null;
-        boolean a = true; 
-        int result;
-  
         
-        try {
-            //Read the port number from a text file
-            br = new BufferedReader(new FileReader("portnumber.txt"));
+        int Portnumber;
+        try{
+         br = new BufferedReader(new FileReader("portnumber.txt"));
             String Port = br.readLine();
             br.close();
 
@@ -31,6 +23,22 @@ public class SocketClient {
             //Open the socket
         
             MyClient = new Socket("localhost", Portnumber);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean login(String usr, String pw) {
+
+        DataOutputStream output = null;
+        DataInputStream input = null;
+        boolean a = true; 
+        int result;
+  
+        
+        try {
+            //Read the port number from a text file
+           
             
 
             output = new DataOutputStream(MyClient.getOutputStream());

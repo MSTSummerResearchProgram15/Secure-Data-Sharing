@@ -148,5 +148,13 @@ public class ThreadManager {
             sm.mergeFiles(inputFiles);
         
 	}        
+
+    public boolean getIsOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
         
 }

@@ -17,13 +17,15 @@ import javax.swing.JPanel;
  */
 public class ManagePermissionsPanel extends javax.swing.JPanel {
 
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     File selectedFile;
     /**
      * Creates new form ManagePermissionsPanel
      */
-    public ManagePermissionsPanel(boolean isOwner, File file) {
-        this.isOwner = isOwner;
+    public ManagePermissionsPanel(ThreadManager tm, SocketClient client, File file) {
+        this.tm = tm;
+        this.client = client;
         initComponents();
         selectedFile = file;
         if(selectedFile != null){
@@ -166,7 +168,7 @@ public class ManagePermissionsPanel extends javax.swing.JPanel {
         
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel panel = new FileUploadPanel(isOwner, selectedFile);
+        JPanel panel = new FileUploadPanel(tm, client, selectedFile);
         frame[0].add(panel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_okButtonActionPerformed
@@ -174,7 +176,7 @@ public class ManagePermissionsPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel panel = new FileUploadPanel(isOwner, selectedFile);
+        JPanel panel = new FileUploadPanel(tm, client, selectedFile);
         frame[0].add(panel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed

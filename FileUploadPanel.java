@@ -24,13 +24,15 @@ import com.dropbox.core.DbxException;
  */
 public class FileUploadPanel extends javax.swing.JPanel {
 
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     File selectedFile;
     /**
      * Creates new form FileUploadPanel
      */
-    public FileUploadPanel(boolean isOwner, File file) {
-        this.isOwner = isOwner;
+    public FileUploadPanel(ThreadManager tm, SocketClient client, File file) {
+        this.tm = tm;
+        this.client = client;
         initComponents();
         this.selectedFile = file;
         if(selectedFile != null){
@@ -299,7 +301,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
     private void SettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel panel = new ManagePermissionsPanel(isOwner, selectedFile);
+        JPanel panel = new ManagePermissionsPanel(tm, client, selectedFile);
         frame[0].add(panel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_SettingsButtonActionPerformed
@@ -357,7 +359,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel homePanel = new HomePanel(isOwner);
+        JPanel homePanel = new HomePanel(tm, client);
         frame[0].add(homePanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed

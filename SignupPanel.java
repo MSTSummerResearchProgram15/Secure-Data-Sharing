@@ -13,13 +13,15 @@ import javax.swing.JPanel;
  * @author macbook
  */
 public class SignupPanel extends javax.swing.JPanel {
-    boolean isOwner;
+    ThreadManager tm;
+    SocketClient client;
     /**
      * Creates new form SignupPanel
      */
-    public SignupPanel(boolean isOwner) {
+    public SignupPanel(ThreadManager tm, SocketClient client) {
         initComponents();
-        this.isOwner = isOwner;
+        this.tm = tm;
+        this.client = client;
     }
 
     /**
@@ -138,7 +140,7 @@ public class SignupPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
-        JPanel homePanel = new HomePanel(isOwner);
+        JPanel homePanel = new HomePanel(tm, client);
         frame[0].add(homePanel , BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed
