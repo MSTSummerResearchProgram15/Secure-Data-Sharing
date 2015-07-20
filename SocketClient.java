@@ -5,18 +5,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SocketClient {
-
-    public void run() {
+    
+    public boolean login(String usr, String pw) {
 
         BufferedReader br;
         Socket MyClient;
-
-        //Create an input stream
-        DataInputStream input = null;
-        //Create an output stream
+        int Portnumber;
         DataOutputStream output = null;
-        int Portnumber = -1; // initialize to dummy value
-
+        DataInputStream input = null;
+        boolean a = true; 
+        int result;
+  
+        
         try {
             //Read the port number from a text file
             br = new BufferedReader(new FileReader("portnumber.txt"));
@@ -25,42 +25,42 @@ public class SocketClient {
 
             //Convert string to int 
             Portnumber = Integer.parseInt(Port);
-
-        
-		//Open the socket
+            System.out.println(Port);
+            
+            System.out.println("Position 1");
+            //Open the socket
         
             MyClient = new Socket("localhost", Portnumber);
             
-            input = new DataInputStream(MyClient.getInputStream());
+
             output = new DataOutputStream(MyClient.getOutputStream());
+            input = new DataInputStream(MyClient.getInputStream());
+
             
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
-            int num = input.readInt(); // example server code
-            switch(num){
-                case 1: // login
-                    output.write(num);
-                    int user = input.read();
-                    byte[] password = new byte[1024];
-                    input.readFully(password);
-                    // check password
-                    
-            } // end example server code
+            System.out.println("Position 2");
+     
+            output.writeBytes(usr);
+            output.writeBytes("\n");
+            output.writeBytes(pw);
+            
+            result = input.read();
+            System.out.println(result);
+            if(result == 0)
+            {
+                a = true;
+            }
+            else 
+            {
+                a = false;
+            }
             
             MyClient.close();
         } catch (IOException ex) {
             Logger.getLogger(SocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-		
-        //Close the input, output stream and thread
-        try {
-            output.close();
-            input.close();
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
+        return a;
+    }	
 }
+  

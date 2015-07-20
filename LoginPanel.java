@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import javax.swing.JPanel;
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,11 +24,13 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     public LoginPanel() {
         initComponents();
-        userSelectBox.removeAllItems();
-        userSelectBox.addItem(user);
-        userSelectBox.addItem(owner);
+        //userSelectBox.removeAllItems();
+        //userSelectBox.addItem(user);
+        //userSelectBox.addItem(owner);
         //ThreadManager tm = new ThreadManager();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,12 +47,17 @@ public class LoginPanel extends javax.swing.JPanel {
         PasswordText = new javax.swing.JPasswordField();
         LogInButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        userSelectBox = new javax.swing.JComboBox();
+        badLoginLablel = new javax.swing.JLabel();
 
         jLabel2.setText("Username");
 
         jLabel3.setText("Password");
+
+        UserNameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserNameTextActionPerformed(evt);
+            }
+        });
 
         LogInButton.setText("Log in");
         LogInButton.addActionListener(new java.awt.event.ActionListener() {
@@ -60,9 +68,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Welcome");
 
-        jLabel4.setText("Log in as:");
-
-        userSelectBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        badLoginLablel.setText("Username or Password was incorrect");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,15 +82,14 @@ public class LoginPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LogInButton)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(UserNameText)
                         .addComponent(PasswordText, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(LogInButton)
                         .addGap(18, 18, 18)
-                        .addComponent(userSelectBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(286, Short.MAX_VALUE))
+                        .addComponent(badLoginLablel)))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,35 +107,59 @@ public class LoginPanel extends javax.swing.JPanel {
                         .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(userSelectBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(LogInButton)
-                .addContainerGap(215, Short.MAX_VALUE))
+                    .addComponent(LogInButton)
+                    .addComponent(badLoginLablel))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
         
-        // get params, owner, and key
+        //convert Password to string
+        String passwordvalue = new String(PasswordText.getPassword());
+        String password = "password:"+ passwordvalue;
+        boolean a = false;
+        String usernamevalue = UserNameText.getText();
+        String username = "username:"+ usernamevalue;
+              
+
+        SocketClient client = new SocketClient();
         
-        Frame[] frame = FoundationFrame.getFrames();
-        frame[0].remove(this);
-        if( userSelectBox.getSelectedItem().equals("Data Owner")){isOwner = true;}
-        JPanel homePanel = new HomePanel(isOwner);
-        frame[0].add(homePanel , BorderLayout.CENTER);
-        frame[0].pack();
+        a = client.login(username, password);
+        
+        if( a == true)
+        {
+            Frame[] frame = FoundationFrame.getFrames();
+            frame[0].remove(this);
+            JPanel homePanel = new HomePanel(isOwner);
+            frame[0].add(homePanel , BorderLayout.CENTER);
+            frame[0].pack(); 
+        }
+        else
+        {
+            Frame[] frame = FoundationFrame.getFrames();
+            frame[0].remove(this);
+            JPanel loginPanel = new LoginPanel();
+            frame[0].add(loginPanel , BorderLayout.CENTER);
+            frame[0].pack();
+        }
+        
+        
     }//GEN-LAST:event_LogInButtonActionPerformed
+
+    private void UserNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserNameTextActionPerformed
+        
+        
+    }//GEN-LAST:event_UserNameTextActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogInButton;
     private javax.swing.JPasswordField PasswordText;
     private javax.swing.JTextField UserNameText;
+    private javax.swing.JLabel badLoginLablel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JComboBox userSelectBox;
     // End of variables declaration//GEN-END:variables
 }
