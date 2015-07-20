@@ -106,7 +106,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         //convert Password to string
-        badLoginLabel.setVisible(false);
+        //badLoginLabel.setVisible(false);
         String passwordvalue = new String(PasswordText.getPassword());
         String password = "password:"+ passwordvalue;
         boolean a = false;
@@ -117,7 +117,7 @@ public class LoginPanel extends javax.swing.JPanel {
         
         
         a = client.login(username, password);
-        
+
         if( a == true)
         {
             
@@ -136,7 +136,8 @@ public class LoginPanel extends javax.swing.JPanel {
         }
         else
         {
-            badLoginLabel.setVisible(true);
+           badLoginLabel.setVisible(true);
+
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

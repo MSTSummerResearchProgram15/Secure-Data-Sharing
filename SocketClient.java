@@ -52,7 +52,9 @@ public class SocketClient {
 
             result = input.read();
             System.out.println(result);
+
             if (result == 0) {
+
                 a = true;
             } else {
                 a = false;
