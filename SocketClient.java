@@ -37,19 +37,23 @@ public class SocketClient {
         }
     }
 
-    public boolean login(String usr, String pw) {
+
         
+
+    public boolean login(String usr, String pw) {        
         boolean a = true;
         int result;
 
+        
         try {
+
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Position 2");
 
             output.writeBytes(usr);
             output.writeBytes("\n");
             output.writeBytes(pw);
-
+            System.out.println("Position 3");
             result = input.read();
             System.out.println(result);
 
@@ -60,7 +64,7 @@ public class SocketClient {
                 a = false;
             }
 
-            
+            MyClient.close();
         } catch (IOException ex) {
             Logger.getLogger(SocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }
