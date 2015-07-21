@@ -29,6 +29,7 @@ public class Params {
         this.z_k = this.pairing.pairing(this.g, this.g_k).getImmutable();
         
     }
+    
     public Params(Element g, Element k, Element g_k, Element z_k, PairingParameters curveParams) {
         this.g = g;
         this.k = k;

@@ -1,6 +1,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
+import java.io.IOException;
 import javax.swing.JPanel;
 
 /*
@@ -120,7 +121,11 @@ public class LoginPanel extends javax.swing.JPanel {
             // get instance of threadmanager
             tm = new ThreadManager(new Integer(usernamevalue));
             
+            try{
             client.populateThreadManager(tm);
+            } catch(IOException e){
+                e.printStackTrace();
+            }
             
             
             Frame[] frame = FoundationFrame.getFrames();
