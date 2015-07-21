@@ -22,13 +22,9 @@ public class SocketClient {
 
             //Convert string to int 
             Portnumber = Integer.parseInt(Port);
-            System.out.println(Port);
 
-            System.out.println("Position 1");
             //Open the socket
-
-            MyClient = new Socket("localhost", Portnumber);
-            
+            MyClient = new Socket("localhost", Portnumber);           
             output = new DataOutputStream(MyClient.getOutputStream());
             input = new DataInputStream(MyClient.getInputStream());
             
@@ -46,16 +42,11 @@ public class SocketClient {
 
         
         try {
-
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
-            System.out.println("Position 2");
-
             output.writeBytes(usr);
             output.writeBytes("\n");
             output.writeBytes(pw);
-            System.out.println("Position 3");
             result = input.read();
-            System.out.println(result);
 
             if (result == 0) {
 
