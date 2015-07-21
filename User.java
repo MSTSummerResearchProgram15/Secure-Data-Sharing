@@ -3,14 +3,20 @@ import it.unisa.dia.gas.jpbc.Element;
 //This class allows easy access to user keys
 public class User {
     private Element pk, sk, isk, rk;
+    private int userID;
 
-    public User(Element pk, Element sk, Element isk, Element rk) {
+    public User(int userID, Element pk, Element sk, Element isk, Element rk) {
+        this.userID = userID;
         this.pk = pk;
         this.sk = sk;
         this.isk = isk;
         this.rk = rk;
     }
         
+    public User(int userID){
+        this.userID = userID;
+    }
+    
     public User(){}
     
     public void setPK(Element pk){
@@ -55,5 +61,9 @@ public class User {
 
     public byte[] getISKBytes(){
             return this.isk.toBytes();
+    }
+    
+    public int getUserID(){
+        return this.userID;
     }
 }

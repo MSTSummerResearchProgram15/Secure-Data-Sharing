@@ -22,14 +22,14 @@ public class ThreadManager {
         boolean isOwner;
         String baseName;
 	
-	public ThreadManager(int keySize){
+	public ThreadManager(int keySize, int userID){
             //Generate parameters
             directory = "message";
             File dir = new File(directory);
             dir.mkdir();   
             directory = directory + "\\"; // add back slash
             ParamsGen gen = new ParamsGen();
-            owner = new User();
+            owner = new User(userID);
             switch(keySize){
             	case 128: params = gen.generate(160, 512);
             		break;
@@ -49,15 +49,14 @@ public class ThreadManager {
             }
             key = new KeyGen(params);
             owner = key.generate(); //generate the keys for the data owner
-            user1 = new User();
+            user1 = new User(userID);
             user1 = key.generate(); //generate the keys for data user 1
             System.out.println("The PK size is: " + owner.getPK().getLengthInBytes());
         }
         
 
-        public ThreadManager(){
-            params = new Params();
-            owner = new User();
+        public ThreadManager(int userID){
+            owner = new User(userID);
         }
         
         public void restoreFromNetwork(){

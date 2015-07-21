@@ -118,11 +118,10 @@ public class LoginPanel extends javax.swing.JPanel {
         {
             
             // get instance of threadmanager
-            tm = new ThreadManager();
+            tm = new ThreadManager(new Integer(usernamevalue));
             
-            // temp
-            tm.setIsOwner(true); // temp line to make the rest of it work
-            // temp
+            client.populateThreadManager(tm);
+            
             
             Frame[] frame = FoundationFrame.getFrames();
             frame[0].remove(this);

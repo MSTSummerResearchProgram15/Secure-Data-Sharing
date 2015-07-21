@@ -1,8 +1,12 @@
 
+import it.unisa.dia.gas.jpbc.Pairing;
+import it.unisa.dia.gas.jpbc.PairingParameters;
 import java.io.*;
 import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.SerializationUtils;
+
 
 public class SocketClient {
 
@@ -69,5 +73,34 @@ public class SocketClient {
         }
 
         return a;
+    }
+    
+    public void populateThreadManager(ThreadManager tm) throws IOException {
+        PairingParameters p;
+        byte[] g, k, gk, zk;
+        
+        
+        output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
+        
+        byte[] buffer = new byte[input.available()];
+        input.readFully(buffer);
+        p = SerializationUtils.deserialize(buffer);
+        
+        g = new byte[128];
+        k = new byte[128];
+        gk = new byte[128];
+        zk = new byte[128];
+        input.readFully(g);
+        input.readFully(k);
+        input.readFully(gk);
+        input.readFully(zk);
+        
+        tm.params = new Params(g, k, gk, zk, p);
+        
+        
+        
+        
+        
+        
     }
 }
