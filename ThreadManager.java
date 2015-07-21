@@ -55,6 +55,8 @@ public class ThreadManager {
         
 
         public ThreadManager(){
+            params = new Params();
+            owner = new User();
         }
         
         public void restoreFromNetwork(){
