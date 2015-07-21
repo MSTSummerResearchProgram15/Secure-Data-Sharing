@@ -89,6 +89,10 @@ public class SocketClient {
         tm.params = new Params(g, k, gk, zk, p);
         
         
+        int role = input.readInt();
+        if(role == 0){
+            
+        }
         
         
         
