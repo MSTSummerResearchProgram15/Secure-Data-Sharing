@@ -113,7 +113,7 @@ public class LoginPanel extends javax.swing.JPanel {
         String usernamevalue = UserNameText.getText();
         String username = "username:"+ usernamevalue + "\n";
         a = client.login(username, password);
-        a = true;
+        
         if( a == true)
         {
             
