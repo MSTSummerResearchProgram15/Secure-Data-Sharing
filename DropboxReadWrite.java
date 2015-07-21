@@ -31,7 +31,7 @@ public class DropboxReadWrite {
 
         System.out.println("Linked account: " + client.getAccountInfo().displayName);
 	}
-	public void write(String fin, int i) throws DbxException, IOException{
+	public void write(String fin, int i, String baseName) throws DbxException, IOException{
 		int pos = fin.lastIndexOf(".");
         String baseName = "";
         if (pos > 0) {
@@ -41,7 +41,7 @@ public class DropboxReadWrite {
         FileInputStream inputStream = new FileInputStream(inputFile);
         System.out.println(baseName);
         try {
-            DbxEntry.File uploadedFile = client.uploadFile("/Messages/File" + i + ".txt",
+            DbxEntry.File uploadedFile = client.uploadFile("/" + baseName + "/File" + i + ".txt",
                 DbxWriteMode.add(), inputFile.length(), inputStream);
             System.out.println("Uploaded: " + uploadedFile.toString());
         } finally {
