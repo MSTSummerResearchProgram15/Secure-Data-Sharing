@@ -33,10 +33,6 @@ public class DropboxReadWrite {
 	}
 	public void write(String fin, int i, String baseName) throws DbxException, IOException{
 		int pos = fin.lastIndexOf(".");
-        String baseName = "";
-        if (pos > 0) {
-        baseName = fin.substring(0, pos);
-        }
         File inputFile = new File(fin);
         FileInputStream inputStream = new FileInputStream(inputFile);
         System.out.println(baseName);
