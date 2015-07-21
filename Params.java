@@ -16,6 +16,17 @@ public class Params {
     private PairingParameters curveParams;
 
     public Params(byte[] g, byte[] k, byte[] g_k, byte[] z_k, PairingParameters curveParams){
+        this.curveParams = curveParams;
+        this.pairing = PairingFactory.getPairing(this.curveParams);
+        this.zr = this.pairing.getZr();
+        this.g1 = this.pairing.getG1();
+        this.gt = this.pairing.getGT();
+        
+        this.g = this.g1.newElementFromBytes(g);
+        this.gpre = this.g.getElementPowPreProcessing();
+        this.k = this.zr.newElementFromBytes(k);
+        this.g_k = this.gpre.powZn(this.k.getImmutable());
+        this.z_k = this.pairing.pairing(this.g, this.g_k).getImmutable();
         
     }
     public Params(Element g, Element k, Element g_k, Element z_k, PairingParameters curveParams) {

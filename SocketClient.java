@@ -74,6 +74,7 @@ public class SocketClient {
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
         
         byte[] buffer = new byte[input.available()];
+        
         input.readFully(buffer);
         p = SerializationUtils.deserialize(buffer);
         
@@ -91,8 +92,12 @@ public class SocketClient {
         
         int role = input.readInt();
         if(role == 0){
-            
+            tm.isOwner = true;
+        } else{
+            tm.isOwner = false;
         }
+        
+        
         
         
         
