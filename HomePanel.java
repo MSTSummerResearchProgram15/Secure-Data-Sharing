@@ -155,7 +155,9 @@ public class HomePanel extends javax.swing.JPanel {
         frame[0].add(loginPanel , BorderLayout.CENTER);
         frame[0].pack();
         try {
-            client.MyClient.close();
+            if(client.MyClient.isConnected()){
+                client.MyClient.close();
+            }
         } catch (IOException ex) {
             Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
