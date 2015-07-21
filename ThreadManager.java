@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +20,7 @@ public class ThreadManager {
         FileSplitMerge sm;
         String directory;
         boolean isOwner;
+        String baseName;
 	
 	public ThreadManager(int keySize){
             //Generate parameters
@@ -72,7 +72,7 @@ public class ThreadManager {
             numFiles = (long)Math.ceil((double)fin.length()/(double)chunkSize);
             String fileName = file.getName();
             int pos = fileName.lastIndexOf(".");
-            String baseName = "";
+            baseName = "";
             if (pos > 0) {
             baseName = fileName.substring(0, pos);
             }
@@ -100,7 +100,7 @@ public class ThreadManager {
                 fin = new File(fileIn);
                 String fileOut = directory + baseFileName + i + ".encrypted" + ".signature";
                 fout = new File(fileOut);
-                Runnable worker = new Signer(fin, fout, params, owner, i, dp);
+                Runnable worker = new Signer(fin, fout, params, owner, i, dp, baseName);
                 executor.execute(worker);
             }
             executor.shutdown();

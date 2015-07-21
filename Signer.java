@@ -26,9 +26,10 @@ public class Signer implements Runnable {
     File input;
     int i;
     DropboxReadWrite dp;
+    String baseName;
 
     // constructor
-    public Signer(File input, File output, Params params, User user, int i, DropboxReadWrite dp){
+    public Signer(File input, File output, Params params, User user, int i, DropboxReadWrite dp, String baseName){
         this.g1 = params.getg1();
         this.sysParams = params.getg();
         this.publicKey = user.getPK();
@@ -37,6 +38,7 @@ public class Signer implements Runnable {
         this.input = input;
         this.i = i;
         this.dp = dp;
+        this.baseName = baseName;
     }
 
     //run
@@ -51,7 +53,7 @@ public class Signer implements Runnable {
             os = new FileOutputStream(input);
             os.write(generateSignature(message).toBytes());
             os.close();
-			dp.write(input.getName(), i);
+			dp.write(input.getName(), i, baseName);
 			try {
 				System.out.println(Files.deleteIfExists(input.toPath()));
 			} catch (IOException e1) {

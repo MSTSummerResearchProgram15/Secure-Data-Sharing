@@ -25,6 +25,7 @@ public class Encryption implements Runnable{
 	DropboxReadWrite dp;
 	int i;
 	String fileIn;
+	
 	public Encryption(File fin, File fout, Params params, User owner, DropboxReadWrite dp, int i, String fileIn){
 		this.fin = fin;
 		this.fout = fout;
