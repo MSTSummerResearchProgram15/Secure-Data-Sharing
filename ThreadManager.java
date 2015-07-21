@@ -11,9 +11,9 @@ import com.dropbox.core.DbxException;
 
 
 public class ThreadManager {
-	public static char[] array;
-	public static File fin, fout;
-	public static long numFiles;
+	public char[] array;
+	public File fin, fout;
+	public long numFiles;
         Params params;
         User owner, user1;
         KeyGen key;
