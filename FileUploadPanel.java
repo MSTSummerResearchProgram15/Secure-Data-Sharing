@@ -326,7 +326,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ChooseFileButtonActionPerformed
 
-    private void UploadButtonActionPerformed(java.awt.event.ActionEvent evt) throws DbxException {//GEN-FIRST:event_UploadButtonActionPerformed
+    private void UploadButtonActionPerformed(java.awt.event.ActionEvent evt)  {//GEN-FIRST:event_UploadButtonActionPerformed
         if(selectedFile == null){
             noFileSelectedLabel.setVisible(true);
         } else {
