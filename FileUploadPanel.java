@@ -342,6 +342,8 @@ public class FileUploadPanel extends javax.swing.JPanel {
             } catch (IOException ex) {
               JOptionPane.showMessageDialog(this, "File not found");
                ex.printStackTrace();
+            } catch (DbxException dbe){
+                dbe.printStackTrace();
             }
             String fileName = selectedFile.getName();
             int pos = fileName.lastIndexOf(".");
@@ -360,7 +362,9 @@ public class FileUploadPanel extends javax.swing.JPanel {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}catch (DbxException dbe){
+                            dbe.printStackTrace();
+                        }
         }
     }//GEN-LAST:event_UploadButtonActionPerformed
 
