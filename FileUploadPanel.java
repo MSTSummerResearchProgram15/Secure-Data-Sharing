@@ -87,34 +87,43 @@ public class FileUploadPanel extends javax.swing.JPanel {
 
         buttonGroup1.add(block64);
         block64.setText("64 byte");
+        block64.setEnabled(false);
 
         noFileSelectedLabel.setText("No file selected, please select a file");
 
         buttonGroup1.add(block128);
         block128.setSelected(true);
         block128.setText("128 byte");
+        block128.setEnabled(false);
 
         buttonGroup1.add(block256);
         block256.setText("256 byte");
+        block256.setEnabled(false);
 
         buttonGroup1.add(block512);
         block512.setText("512 byte");
+        block512.setEnabled(false);
 
         buttonGroup1.add(block1024);
         block1024.setText("1024 byte");
+        block1024.setEnabled(false);
 
         buttonGroup1.add(block2048);
         block2048.setText("2048 byte");
+        block2048.setEnabled(false);
 
         buttonGroup2.add(size128);
         size128.setText("128 bit");
+        size128.setEnabled(false);
 
         buttonGroup2.add(size256);
         size256.setText("256 bit");
+        size256.setEnabled(false);
 
         buttonGroup2.add(size512);
         size512.setSelected(true);
         size512.setText("512 bit");
+        size512.setEnabled(false);
 
         buttonGroup2.add(size1024);
         size1024.setText("1024 bit");
@@ -131,9 +140,11 @@ public class FileUploadPanel extends javax.swing.JPanel {
         buttonGroup3.add(BLSButton);
         BLSButton.setSelected(true);
         BLSButton.setText("BLS");
+        BLSButton.setEnabled(false);
 
         buttonGroup3.add(RSAButton);
         RSAButton.setText("RSA");
+        RSAButton.setEnabled(false);
 
         SettingsButton.setText("User Access Settings");
         SettingsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -155,18 +166,15 @@ public class FileUploadPanel extends javax.swing.JPanel {
         UploadButton.setText("Upload File");
         UploadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-					UploadButtonActionPerformed(evt);
-				} catch (DbxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                UploadButtonActionPerformed(evt);
             }
         });
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator3.setEnabled(false);
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator4.setEnabled(false);
 
         jLabel1.setText("Block Size:");
 
