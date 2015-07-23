@@ -198,15 +198,16 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_fileListValueChanged
 
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
-        System.out.println(fileList.getSelectedValue().toString());
+        String fileName = fileList.getSelectedValue().toString();
         try {
-            client.output.writeBytes(fileList.getSelectedValue().toString());
+            client.output.writeBytes(fileName);
             
             
         } catch (IOException ex) {
             Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        
         //dn.decrypt("LoremIpsum");
     }//GEN-LAST:event_downloadButtonActionPerformed
 
