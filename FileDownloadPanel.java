@@ -189,12 +189,14 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void fileListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_fileListValueChanged
+        /*
         File f = (File) fileList.getSelectedValue();
         fileNameLabel.setText(f.getName());
         fileDescriptionLabel.setText("No Description");
         fileSizeLabel.setText(Long.toString(f.length()));
         Date lastModified = new Date(f.lastModified());
         fileDateModifiedLabel.setText(lastModified.toString());
+        */
     }//GEN-LAST:event_fileListValueChanged
 
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
