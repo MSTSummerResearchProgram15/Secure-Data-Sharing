@@ -36,8 +36,11 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         fileList.setModel(lm);
         lm.removeAllElements();
         
+        String[] fileNames = client.populateFileList();
         
-        
+        for (int i = 0; i < fileNames.length; i++) {
+            lm.addElement(fileNames[i]);
+        }
     }
 
     /**

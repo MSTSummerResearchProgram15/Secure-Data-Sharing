@@ -100,14 +100,17 @@ public class SocketClient {
     }
     
     public String[] populateFileList(){
+        
         String temp = "";
         String last = "";
         String[] out = new String[1024];
         int next = 0;
         byte[] buffer = new byte[100];
         boolean moreFiles = true;
+        
         while (moreFiles) {
             try {
+                output.writeBytes("fileList:");
                 input.readFully(buffer);
             } catch (IOException ex) {
                 Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
