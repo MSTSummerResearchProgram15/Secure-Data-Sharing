@@ -44,4 +44,12 @@ public class DropboxReadWrite {
             inputStream.close();
         }
     }
+	
+	public void listFiles() throws DbxException{
+		DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
+		System.out.println("Files in the root path:");
+		for (DbxEntry child : listing.children) {
+		    System.out.println("	" + child.name + ": " + child.toString());
+		}
+	}
 }
