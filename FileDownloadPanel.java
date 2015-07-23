@@ -2,7 +2,10 @@
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
@@ -11,7 +14,6 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Dylan
@@ -20,6 +22,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
 
     ThreadManager tm;
     SocketClient client;
+
     /**
      * Creates new form FileDownloadPanel
      */
@@ -28,13 +31,31 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         this.client = client;
         initComponents();
         DefaultListModel lm = new DefaultListModel();
-        
+
         // put this part in a while loop that grabs files from a db until it doesn't have any more
-        File testFile;
-        testFile = new File("LoremIpsum");
         fileList.setModel(lm);
         lm.removeAllElements();
-        lm.addElement(testFile);    
+        String temp = "";
+        String last = "";
+        String test = "test file name";
+        lm.addElement(test);
+        
+        byte[] buffer = new byte[100];
+        boolean moreFiles = true;
+        while (moreFiles) {
+            try {
+                client.input.readFully(buffer);
+            } catch (IOException ex) {
+                Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            last = temp;
+            temp = new String(buffer);
+            moreFiles = !buffer.equals("NOMOREFILES");
+            
+            if (moreFiles && !buffer.equals(last)) {
+                lm.addElement(temp);
+            }
+        }
     }
 
     /**
@@ -178,12 +199,12 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         Frame[] frame = FoundationFrame.getFrames();
         frame[0].remove(this);
         JPanel homePanel = new HomePanel(tm, client);
-        frame[0].add(homePanel , BorderLayout.CENTER);
+        frame[0].add(homePanel, BorderLayout.CENTER);
         frame[0].pack();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void fileListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_fileListValueChanged
-        File f = (File)fileList.getSelectedValue();
+        File f = (File) fileList.getSelectedValue();
         fileNameLabel.setText(f.getName());
         fileDescriptionLabel.setText("No Description");
         fileSizeLabel.setText(Long.toString(f.length()));
@@ -192,11 +213,16 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_fileListValueChanged
 
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
-        //ThreadManager dn = new ThreadManager(); //I don't know what to do with this? ThreadManager needs a parameter keySize now
-        
-        
+        System.out.println(fileList.getSelectedValue().toString());
+        try {
+            client.output.writeBytes(fileList.getSelectedValue().toString());
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         //dn.decrypt("LoremIpsum");
-        
     }//GEN-LAST:event_downloadButtonActionPerformed
 
 
