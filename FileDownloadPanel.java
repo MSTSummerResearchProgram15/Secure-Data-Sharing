@@ -202,7 +202,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
         String fileName = fileList.getSelectedValue().toString();
         try {
-            client.output.writeBytes(fileName);
+            client.output.writeBytes("download:"+fileName);
             
             
         } catch (IOException ex) {
