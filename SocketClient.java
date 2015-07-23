@@ -96,11 +96,31 @@ public class SocketClient {
         } else{
             tm.isOwner = false;
         }
-        
-        
-        
-        
-        
-        
+       
+    }
+    
+    public String[] populateFileList(){
+        String temp = "";
+        String last = "";
+        String[] out = new String[1024];
+        int next = 0;
+        byte[] buffer = new byte[100];
+        boolean moreFiles = true;
+        while (moreFiles) {
+            try {
+                input.readFully(buffer);
+            } catch (IOException ex) {
+                Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            last = temp;
+            temp = new String(buffer);
+            moreFiles = !buffer.equals("NOMOREFILES");
+            
+            if (moreFiles && !buffer.equals(last)) {
+                out[next] = new String(buffer);
+                next++;
+            }
+        }
+        return out;
     }
 }

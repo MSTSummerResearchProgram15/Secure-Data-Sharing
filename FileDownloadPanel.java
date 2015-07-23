@@ -35,27 +35,9 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         // put this part in a while loop that grabs files from a db until it doesn't have any more
         fileList.setModel(lm);
         lm.removeAllElements();
-        String temp = "";
-        String last = "";
-        String test = "test file name";
-        lm.addElement(test);
         
-        byte[] buffer = new byte[100];
-        boolean moreFiles = true;
-        while (moreFiles) {
-            try {
-                client.input.readFully(buffer);
-            } catch (IOException ex) {
-                Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            last = temp;
-            temp = new String(buffer);
-            moreFiles = !buffer.equals("NOMOREFILES");
-            
-            if (moreFiles && !buffer.equals(last)) {
-                lm.addElement(temp);
-            }
-        }
+        
+        
     }
 
     /**
