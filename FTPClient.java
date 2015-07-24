@@ -11,26 +11,22 @@ import java.net.UnknownHostException;
 
 
 public class FTPClient {
-	public static void main(String[] args) throws Exception {
-
-       
-    }
+	Socket sock;
 	
 	public FTPClient() throws UnknownHostException, IOException{
 		 long start = System.currentTimeMillis();
 
 	     // localhost for testing
-	     Socket sock = new Socket("127.0.0.1", 13262);
+	     sock = new Socket("127.0.0.1", 13262);
 	     System.out.println("Connecting...");
-	     InputStream is = sock.getInputStream();
 	     // receive file
 	     long end = System.currentTimeMillis();
 	     System.out.println(end - start);
 
-	     sock.close();
 	}
 
-    public void receiveFile(InputStream is) throws Exception {
+    public void receiveFile() throws Exception {
+	    InputStream is = sock.getInputStream();
         int filesize = 6022386;
         int bytesRead;
         int current = 0;
@@ -51,5 +47,6 @@ public class FTPClient {
         bos.write(mybytearray, 0, current);
         bos.flush();
         bos.close();
+	     sock.close();
     }
 }
