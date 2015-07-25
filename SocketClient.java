@@ -73,8 +73,9 @@ public class SocketClient {
         byte[] gk = new byte[512];
         byte[] zk = new byte[512];
 
-        byte[] buffer = new byte[512]; // max size?
         int role;
+                
+        byte[] buffer = new byte[512]; // max size?
 
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
 
