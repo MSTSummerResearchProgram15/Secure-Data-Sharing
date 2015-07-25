@@ -3,7 +3,7 @@ import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.ElementPowPreProcessing;
 import it.unisa.dia.gas.jpbc.Field;
 import it.unisa.dia.gas.jpbc.Pairing;
-import it.unisa.dia.gas.jpbc.PairingParameters;
+//import it.unisa.dia.gas.jpbc.PairingParameters;
 import it.unisa.dia.gas.plaf.jpbc.pairing.PairingFactory;
 
 public class Params {
@@ -13,11 +13,10 @@ public class Params {
     private ElementPowPreProcessing gpre;
     private Pairing pairing;
     private int chunkSize;
-    private PairingParameters curveParams;
+    //private PairingParameters curveParams;
 
-    public Params(byte[] g, byte[] k, byte[] g_k, byte[] z_k, PairingParameters curveParams){
-        this.curveParams = curveParams;
-        this.pairing = PairingFactory.getPairing(this.curveParams);
+    public Params(byte[] g, byte[] k, byte[] g_k, byte[] z_k){
+        this.pairing = PairingFactory.getPairing("a.properties");
         this.zr = this.pairing.getZr();
         this.g1 = this.pairing.getG1();
         this.gt = this.pairing.getGT();
@@ -30,13 +29,12 @@ public class Params {
         
     }
     
-    public Params(Element g, Element k, Element g_k, Element z_k, PairingParameters curveParams) {
+    public Params(Element g, Element k, Element g_k, Element z_k) {
         this.g = g;
         this.k = k;
         this.g_k = g_k;
         this.z_k = z_k;
-        this.curveParams = curveParams;
-        this.pairing = PairingFactory.getPairing(this.curveParams);
+        this.pairing = PairingFactory.getPairing("a.properties");
         this.zr = this.pairing.getZr();
         this.g1 = this.pairing.getG1();
         this.gt = this.pairing.getGT();
@@ -45,9 +43,9 @@ public class Params {
     public Params() {
     }
 
-    public void setCurveparams(PairingParameters curveParams){
-        this.curveParams = curveParams;
-    }
+//    public void setCurveparams(PairingParameters curveParams){
+//        this.curveParams = curveParams;
+//    }
     public void setPairing(Pairing pairing) {
         this.pairing = pairing;
     }
@@ -120,9 +118,9 @@ public class Params {
         return this.z_k;
     }
 
-    public PairingParameters getCurveParameters(){
-        return this.curveParams;
-    }
+//    public PairingParameters getCurveParameters(){
+//        return this.curveParams;
+//    }
     
     public Pairing getPairing() {
         return this.pairing;

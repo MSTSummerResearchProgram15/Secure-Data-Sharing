@@ -1,4 +1,5 @@
 
+import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.Pairing;
 import it.unisa.dia.gas.jpbc.PairingParameters;
 import java.io.*;
@@ -68,18 +69,19 @@ public class SocketClient {
     
     
   
-    
+    /*
+        reads in this order: g, k, g_k, z_k, userID, privateKey, role
+    */
     public void populateThreadManager(ThreadManager tm) throws IOException {
-        PairingParameters p;
+        //PairingParameters p;
         byte[] g, k, gk, zk;
-        
         
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
         
-        byte[] buffer = new byte[input.available()];
+        //byte[] buffer = new byte[input.available()];
         
-        input.readFully(buffer);
-        p = SerializationUtils.deserialize(buffer);
+        //input.readFully(buffer);
+        //p = SerializationUtils.deserialize(buffer);
         
         g = new byte[128];
         k = new byte[128];
@@ -90,8 +92,18 @@ public class SocketClient {
         input.readFully(gk);
         input.readFully(zk);
         
-        tm.params = new Params(g, k, gk, zk, p);
+        tm.params = new Params(g, k, gk, zk);
+                
+        byte[] buffer = new byte[512]; // max size?
         
+        tm.owner = new User(input.readInt());
+        
+        input.readFully(buffer);
+        tm.owner.setSK(tm.params.getzr().newElementFromBytes(buffer));
+        
+        tm.owner.setPK(tm.params.getgpre().powZn(tm.owner.getSK()).getImmutable());
+        
+        tm.owner.setISK(tm.owner.getSK().invert().getImmutable());
         
         int role = input.readInt();
         if(role == 0){
