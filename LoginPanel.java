@@ -108,13 +108,16 @@ public class LoginPanel extends javax.swing.JPanel {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         //convert Password to string
         //badLoginLabel.setVisible(false);
+        System.out.println("you clicked login");
         String passwordvalue = new String(PasswordText.getPassword());
         String password = "password:" + passwordvalue + "\n";
         boolean a = false;
         String usernamevalue = UserNameText.getText();
         String username = "username:" + usernamevalue + "\n";
+        System.out.println("attempting to log in");
         a = client.login(username, password);
-
+        System.out.println("Received the result");
+        System.out.println(a);
         if (a == true) {
             System.out.println("successful login, attempting to get user data");
 

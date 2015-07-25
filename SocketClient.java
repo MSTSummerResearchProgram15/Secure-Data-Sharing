@@ -44,10 +44,13 @@ public class SocketClient {
 
         try {
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
+            System.out.println("Sending value");
             output.writeBytes(usr);
             output.writeBytes("\n");
             output.writeBytes(pw);
+            System.out.println("Waiting for response");
             result = input.read();
+            System.out.println("Received result");
 
             if (result == 0) {
 
