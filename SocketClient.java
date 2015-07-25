@@ -46,8 +46,9 @@ public class SocketClient {
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Sending value");
             output.writeBytes(usr);
-            
+            MyClient.getOutputStream().flush();
             output.write('\n');
+            MyClient.getOutputStream().flush();
             output.writeBytes(pw);
             MyClient.getOutputStream().flush();
             System.out.println("Waiting for response");
@@ -167,7 +168,7 @@ public class SocketClient {
         while (moreFiles) {
             try {
                 output.writeBytes("fileList:");
-                output.flush();
+                MyClient.getOutputStream().flush();
                 input.readFully(buffer);
             } catch (IOException ex) {
                 Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
