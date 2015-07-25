@@ -66,6 +66,9 @@ public class SocketClient {
         return a;
     }
     
+    
+  
+    
     public void populateThreadManager(ThreadManager tm) throws IOException {
         PairingParameters p;
         byte[] g, k, gk, zk;
