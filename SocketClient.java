@@ -46,9 +46,10 @@ public class SocketClient {
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Sending value");
             output.writeBytes(usr);
-            output.flush();
+            
+            output.write('\n');
             output.writeBytes(pw);
-            output.flush();
+            MyClient.getOutputStream().flush();
             System.out.println("Waiting for response");
             result = input.read();
             System.out.println("Received result");
@@ -81,11 +82,10 @@ public class SocketClient {
                 
         byte[] buffer = new byte[512]; // max size?
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
-        output.flush();
-        String userInfo = "Userinfo:" + tm.owner.getUserID();
-        output.writeBytes(userInfo); // send request for info to server
-        output.flush();
-        System.out.println(userInfo);
+        MyClient.getOutputStream().flush();
+
+
+
         boolean needG = true;
         boolean needK = true;
         boolean needGK = true;
