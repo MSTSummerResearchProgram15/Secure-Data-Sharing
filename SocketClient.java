@@ -70,7 +70,7 @@ public class SocketClient {
     
   
     /*
-        reads in this order: g, k, g_k, z_k, userID, privateKey, role
+        reads in this order: g, k, g_k, z_k, privateKey, role
     */
     public void populateThreadManager(ThreadManager tm) throws IOException {
         //PairingParameters p;

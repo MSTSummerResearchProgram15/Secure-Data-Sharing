@@ -9,7 +9,6 @@ import javax.swing.JPanel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Dylan
@@ -18,6 +17,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
     ThreadManager tm;
     SocketClient client;
+
     /**
      * Creates new form LoginPanel
      */
@@ -109,34 +109,30 @@ public class LoginPanel extends javax.swing.JPanel {
         //convert Password to string
         //badLoginLabel.setVisible(false);
         String passwordvalue = new String(PasswordText.getPassword());
-        String password = "password:"+ passwordvalue + "\n";
+        String password = "password:" + passwordvalue + "\n";
         boolean a = false;
         String usernamevalue = UserNameText.getText();
-        String username = "username:"+ usernamevalue + "\n";
+        String username = "username:" + usernamevalue + "\n";
         a = client.login(username, password);
- 
-        if( a == true)
-        {
-            
+
+        if (a == true) {
+
             // get instance of threadmanager
             tm = new ThreadManager(new Integer(usernamevalue));
-            
-            try{
-            client.populateThreadManager(tm);
-            } catch(IOException e){
+
+            try {
+                client.populateThreadManager(tm);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            
-            
+
             Frame[] frame = FoundationFrame.getFrames();
             frame[0].remove(this);
             JPanel homePanel = new HomePanel(tm, client);
-            frame[0].add(homePanel , BorderLayout.CENTER);
-            frame[0].pack(); 
-        }
-        else
-        {
-           badLoginLabel.setVisible(true);
+            frame[0].add(homePanel, BorderLayout.CENTER);
+            frame[0].pack();
+        } else {
+            badLoginLabel.setVisible(true);
 
         }
     }//GEN-LAST:event_loginButtonActionPerformed
