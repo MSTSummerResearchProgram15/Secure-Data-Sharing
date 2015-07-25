@@ -97,37 +97,40 @@ public class SocketClient {
             if (posZero == 'a') {
                 g = buffer;
                 needG = false;
+                posZero = 0;
             }
             if (posZero == 'b') {
                 k = buffer;
                 needK = false;
+                posZero = 0;
             }
             if (posZero == 'c') {
                 gk = buffer;
                 needGK = false;
+                posZero = 0;
             }
             if (posZero == 'd') {
                 zk = buffer;
                 needZK = false;
+                posZero = 0;
                 if (!(needG || needK || needGK || needZK)) {
                     tm.params = new Params(g, k, gk, zk);
                 }
             }
-            
+            if (posZero == 'e') {
+                tm.owner.setSK(tm.params.getzr().newElementFromBytes(buffer));
+
+                tm.owner.setPK(tm.params.getgpre().powZn(tm.owner.getSK()).getImmutable());
+
+                tm.owner.setISK(tm.owner.getSK().invert().getImmutable());
+                needSKey = false;
+                posZero = 0;
+
+            }
 
             //byte[] buffer = new byte[input.available()];
             //input.readFully(buffer);
             //p = SerializationUtils.deserialize(buffer);
-            
-
-            tm.owner = new User(input.readInt());
-
-            input.readFully(buffer);
-            tm.owner.setSK(tm.params.getzr().newElementFromBytes(buffer));
-
-            tm.owner.setPK(tm.params.getgpre().powZn(tm.owner.getSK()).getImmutable());
-
-            tm.owner.setISK(tm.owner.getSK().invert().getImmutable());
 
             role = input.readInt();
             if (role == 0) {
