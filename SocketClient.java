@@ -86,6 +86,7 @@ public class SocketClient {
         byte posZero;
 
         while (needG || needK || needGK || needZK || needSKey) {
+            System.out.println("while?");
             input.readFully(buffer);
             posZero = buffer[0];
 
@@ -114,6 +115,7 @@ public class SocketClient {
                 needZK = false;
                 posZero = 0;
                 if (!(needG || needK || needGK || needZK)) {
+                    System.out.println("got all the params");
                     tm.params = new Params(g, k, gk, zk);
                 }
             }
@@ -125,7 +127,8 @@ public class SocketClient {
                 tm.owner.setISK(tm.owner.getSK().invert().getImmutable());
                 needSKey = false;
                 posZero = 0;
-
+                
+                System.out.println("here's the secret key");
             }
 
             //byte[] buffer = new byte[input.available()];
@@ -135,8 +138,10 @@ public class SocketClient {
             role = input.readInt();
             if (role == 0) {
                 tm.isOwner = true;
+                System.out.println("Im an owner too");
             } else {
                 tm.isOwner = false;
+                System.out.println("and im not an owner");
             }
         }
     }

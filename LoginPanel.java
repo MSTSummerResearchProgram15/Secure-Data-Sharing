@@ -116,16 +116,21 @@ public class LoginPanel extends javax.swing.JPanel {
         a = client.login(username, password);
 
         if (a == true) {
+            System.out.println("successful login, attempting to get user data");
 
             // get instance of threadmanager
             tm = new ThreadManager(new Integer(usernamevalue));
+            
 
             try {
+                System.out.println("trying to populate ThreadManager");
                 client.populateThreadManager(tm);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            System.out.println("success, moving on");
+            
             Frame[] frame = FoundationFrame.getFrames();
             frame[0].remove(this);
             JPanel homePanel = new HomePanel(tm, client);
