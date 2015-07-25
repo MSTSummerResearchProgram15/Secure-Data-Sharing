@@ -47,7 +47,6 @@ public class SocketClient {
             System.out.println("Sending value");
             output.writeBytes(usr);
             output.flush();
-
             output.writeBytes(pw);
             output.flush();
             System.out.println("Waiting for response");
@@ -83,6 +82,10 @@ public class SocketClient {
         byte[] buffer = new byte[512]; // max size?
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
         output.flush();
+        String userInfo = "Userinfo:" + tm.owner.getUserID();
+        output.writeBytes(userInfo); // send request for info to server
+        output.flush();
+        System.out.println(userInfo);
         boolean needG = true;
         boolean needK = true;
         boolean needGK = true;
@@ -164,6 +167,7 @@ public class SocketClient {
         while (moreFiles) {
             try {
                 output.writeBytes("fileList:");
+                output.flush();
                 input.readFully(buffer);
             } catch (IOException ex) {
                 Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
