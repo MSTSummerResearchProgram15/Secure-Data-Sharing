@@ -46,8 +46,10 @@ public class SocketClient {
             //WRITE WHAT WE WANT TO SEND OR RECEIVE HERE
             System.out.println("Sending value");
             output.writeBytes(usr);
-            output.writeBytes("\n");
+            output.flush();
+            
             output.writeBytes(pw);
+            output.flush();
             System.out.println("Waiting for response");
             result = input.read();
             System.out.println("Received result");
@@ -79,9 +81,10 @@ public class SocketClient {
         int role;
                 
         byte[] buffer = new byte[512]; // max size?
-        String UserInfo = "Userinfo:" + tm.owner.getUserID();
-        output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
-        System.out.println(UserInfo);
+        String userInfo = "Userinfo:" + tm.owner.getUserID();
+        output.writeBytes(userInfo); // send request for info to server
+        output.flush();
+        System.out.println(userInfo);
         boolean needG = true;
         boolean needK = true;
         boolean needGK = true;
@@ -163,6 +166,7 @@ public class SocketClient {
         while (moreFiles) {
             try {
                 output.writeBytes("fileList:");
+                output.flush();
                 input.readFully(buffer);
             } catch (IOException ex) {
                 Logger.getLogger(FileDownloadPanel.class.getName()).log(Level.SEVERE, null, ex);
