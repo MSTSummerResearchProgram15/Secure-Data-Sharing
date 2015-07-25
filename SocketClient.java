@@ -79,9 +79,9 @@ public class SocketClient {
         int role;
                 
         byte[] buffer = new byte[512]; // max size?
-
+        String UserInfo = "Userinfo:" + tm.owner.getUserID();
         output.writeBytes("Userinfo:" + tm.owner.getUserID()); // send request for info to server
-
+        System.out.println(UserInfo);
         boolean needG = true;
         boolean needK = true;
         boolean needGK = true;
@@ -92,6 +92,7 @@ public class SocketClient {
         while (needG || needK || needGK || needZK || needSKey) {
             System.out.println("while?");
             input.readFully(buffer);
+            System.out.println(buffer);
             posZero = buffer[0];
 
             for (int i = 0; i < buffer.length - 1; i++) {
