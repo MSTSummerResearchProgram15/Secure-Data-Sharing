@@ -9,7 +9,7 @@ public class DropboxReadWrite {
 	DbxClient client;
 	public DropboxReadWrite() throws IOException, DbxException{
 		// Get your app key and secret from the Dropbox developers website.
-        final String APP_KEY = "s96ghytmr7e7bfm";
+        final String APP_KEY = "s96ghytmr7e7bfm"; //Add own keys generated in the dropbox app console
         final String APP_SECRET = "8n7eb6a9fisdwxs";
         DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
         DbxRequestConfig config = new DbxRequestConfig("Secure-Data-Sharing",
@@ -37,16 +37,16 @@ public class DropboxReadWrite {
         FileInputStream inputStream = new FileInputStream(inputFile);
         System.out.println(baseName);
         try {
-            DbxEntry.File uploadedFile = client.uploadFile("/" + baseName + "/File" + i + ".txt",
+            DbxEntry.File uploadedFile = client.uploadFile("/" + baseName + "/File" + i + ".txt", //Write Filei.txt in the specified folder
                 DbxWriteMode.add(), inputFile.length(), inputStream);
             System.out.println("Uploaded: " + uploadedFile.toString());
         } finally {
             inputStream.close();
         }
     }
-	
+	//This method prints all of the folders in the root directory
 	public void listFiles() throws DbxException{
-		DbxEntry.WithChildren listing = client.getMetadataWithChildren("/");
+		DbxEntry.WithChildren listing = client.getMetadataWithChildren("/"); //Modify this to print files, etc.
 		System.out.println("Files in the root path:");
 		for (DbxEntry child : listing.children) {
 		    System.out.println("	" + child.name + ": " + child.toString());
