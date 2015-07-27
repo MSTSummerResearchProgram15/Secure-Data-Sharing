@@ -24,7 +24,7 @@ public class LoginPanel extends javax.swing.JPanel {
     public LoginPanel(SocketClient client) {
         initComponents();
         this.client = client;
-        badLoginLabel.setVisible(false);
+        badLoginLabel.setVisible(false); // defaults to invisible
     }
 
     /**
@@ -109,38 +109,38 @@ public class LoginPanel extends javax.swing.JPanel {
         //convert Password to string
         //badLoginLabel.setVisible(false);
         System.out.println("you clicked login");
-        String passwordvalue = new String(PasswordText.getPassword());
-        String password = "password:" + passwordvalue + "\n";
+        String passwordvalue = new String(PasswordText.getPassword()); // grab password
+        String password = "password:" + passwordvalue + "\n";// format for transmission
         boolean a = false;
-        String usernamevalue = UserNameText.getText();
-        String username = "username:" + usernamevalue + "\n";
+        String usernamevalue = UserNameText.getText();               // grab username
+        String username = "username:" + usernamevalue + "\n";// format for transmission
         System.out.println("attempting to log in");
-        a = client.login(username, password);
+        a = client.login(username, password);       // use socket to talk to server to login, returns true/false
         System.out.println("Received the result");
         System.out.println(a);
         if (a == true) {
             System.out.println("successful login, attempting to get user data");
 
             // get instance of threadmanager
-            tm = new ThreadManager(new Integer(usernamevalue));
+            tm = new ThreadManager(new Integer(usernamevalue));     // instantiate threadManager, this could be instantiated as empty in foundationframe and passed here, but it would get messy with logging out, you'd need an overloaded constructor that doesn't take a threadmanager?
             
 
             try {
                 System.out.println("trying to populate ThreadManager");
-                client.populateThreadManager(tm);
+                client.populateThreadManager(tm); // have client socket ask server to fill threadmanager so that it can be used
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             System.out.println("success, moving on");
             
-            Frame[] frame = FoundationFrame.getFrames();
+            Frame[] frame = FoundationFrame.getFrames(); // move on to homePanel
             frame[0].remove(this);
             JPanel homePanel = new HomePanel(tm, client);
             frame[0].add(homePanel, BorderLayout.CENTER);
             frame[0].pack();
         } else {
-            badLoginLabel.setVisible(true);
+            badLoginLabel.setVisible(true); // if a is false, show label that tells the user that username or password is bad
 
         }
     }//GEN-LAST:event_loginButtonActionPerformed

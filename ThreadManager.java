@@ -9,7 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 import com.dropbox.core.DbxException;
 
-
+/*
+    funnily enough, this class managed threads at one point, but it evolved into something that held everything
+    Putting everything inside here let us only pass one object to the next panel, but lots of stuff that's in here
+    doesn't really belong here with how it's being used
+    isOwner should be inside User too
+*/
 public class ThreadManager {
 	public char[] array;
 	public File fin, fout;

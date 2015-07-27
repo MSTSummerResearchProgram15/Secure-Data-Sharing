@@ -16,7 +16,7 @@ public class Params {
     //private PairingParameters curveParams;
 
     public Params(byte[] g, byte[] k, byte[] g_k, byte[] z_k){
-        this.pairing = PairingFactory.getPairing("a.properties");
+        this.pairing = PairingFactory.getPairing("a.properties"); // makes the pairing from this file but once we are able to store that info on the database, that will be passed in as PairingParameters or something
         this.zr = this.pairing.getZr();
         this.g1 = this.pairing.getG1();
         this.gt = this.pairing.getGT();
@@ -24,7 +24,7 @@ public class Params {
         this.g = this.g1.newElementFromBytes(g);
         this.gpre = this.g.getElementPowPreProcessing();
         this.k = this.zr.newElementFromBytes(k);
-        this.g_k = this.gpre.powZn(this.k.getImmutable());
+        this.g_k = this.gpre.powZn(this.k.getImmutable()); // hmm, maybe we dont need to store g_k and z_k in the database at all?
         this.z_k = this.pairing.pairing(this.g, this.g_k).getImmutable();
         
     }
@@ -44,7 +44,7 @@ public class Params {
     }
 
 //    public void setCurveparams(PairingParameters curveParams){
-//        this.curveParams = curveParams;
+//        this.curveParams = curveParams; // popcorn tastes good... upvote if you get that reference
 //    }
     public void setPairing(Pairing pairing) {
         this.pairing = pairing;

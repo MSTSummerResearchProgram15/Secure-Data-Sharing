@@ -1,2 +1,2 @@
 # Secure-Data-Sharing
-Integrating BLS signature scheme with elliptic curve cryptography
+Client-side application that implements Secure Data Sharing with Dynamic User Groups

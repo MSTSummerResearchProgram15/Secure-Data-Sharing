@@ -28,7 +28,7 @@ public class HomePanel extends javax.swing.JPanel {
         this.tm = tm;
         initComponents();
         if(!tm.getIsOwner()){
-            registerButton.setEnabled(false);
+            registerButton.setEnabled(false);       // disable stuff users don't have access to
             uploadFileButton.setEnabled(false);
             changePermissionsButton.setEnabled(false);
             welcomeLabel.setText("Welcome, User");
@@ -156,7 +156,7 @@ public class HomePanel extends javax.swing.JPanel {
         frame[0].pack();
         try {
             if(client.MyClient.isConnected()){
-                client.MyClient.close();
+                client.MyClient.close(); // close socket connection on logout, maybe not a good idea: need to get new connection at login? not sure if it's that way already
             }
         } catch (IOException ex) {
             Logger.getLogger(HomePanel.class.getName()).log(Level.SEVERE, null, ex);

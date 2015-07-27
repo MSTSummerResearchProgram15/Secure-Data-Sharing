@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang3.SerializationUtils;
 
+// handles communication with the server, maybe there should be another class that handles communication protocols though
 public class SocketClient {
 
     Socket MyClient;

@@ -1,6 +1,7 @@
 import it.unisa.dia.gas.jpbc.Element;
 
-//This class allows easy access to user keys
+//This class allows easy access to user keys and other individual info
+// isOwner should be in here too, also role would be a good fit
 public class User {
     private Element pk, sk, isk, rk;
     private int userID;

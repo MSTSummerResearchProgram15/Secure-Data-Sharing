@@ -36,11 +36,13 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         fileList.setModel(lm);
         lm.removeAllElements();
         
-        String[] fileNames = client.populateFileList();
+        String[] fileNames = client.populateFileList(); // get client to ask server for list of available files
         
         for (int i = 0; i < fileNames.length; i++) {
-            lm.addElement(fileNames[i]);
+            lm.addElement(fileNames[i]);    // add files to the list
+            
         }
+        // when the database stores meta data, it will need to be integrated, maybe a custom object to store file size, date modified, etc assosiated with a given file name, right now all thats getting passed to us is a string
     }
 
     /**
@@ -189,8 +191,8 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void fileListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_fileListValueChanged
-        /*
-        File f = (File) fileList.getSelectedValue();
+        /* // every time an item is selected, size, etc gets displayed, this is where that custom object would come in
+        File f = (File) fileList.getSelectedValue(); 
         fileNameLabel.setText(f.getName());
         fileDescriptionLabel.setText("No Description");
         fileSizeLabel.setText(Long.toString(f.length()));
@@ -202,7 +204,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
         String fileName = fileList.getSelectedValue().toString();
         try {
-            client.output.writeBytes("download:"+fileName);
+            client.output.writeBytes("download:"+fileName); // request a download and specify a file name
             
             
         } catch (IOException ex) {
@@ -210,7 +212,7 @@ public class FileDownloadPanel extends javax.swing.JPanel {
         }
 
         
-        //dn.decrypt("LoremIpsum");
+        // decrypt here !!!
     }//GEN-LAST:event_downloadButtonActionPerformed
 
 

@@ -327,13 +327,16 @@ public class FileUploadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ChooseFileButtonActionPerformed
 
     private void UploadButtonActionPerformed(java.awt.event.ActionEvent evt)  {//GEN-FIRST:event_UploadButtonActionPerformed
+        // ugly code that gets the file you selected, encrypts it, signs it, then uploads it
+        // maybe this belongs in its own class?
+        
         if(selectedFile == null){
             noFileSelectedLabel.setVisible(true);
         } else {
             int blockSize = findBlockSize();
-            int keySize = findKeySize();
+            int keySize = findKeySize(); // the code, it does nothing! // this doesn't do anything yet, block and encryption size was determined at data owner creation
             String signatureType = "BLS";
-            if(RSAButton.isSelected()){signatureType = "RSA";}
+            if(RSAButton.isSelected()){signatureType = "RSA";} // the code for rsa signing is out there in a different project, but was never integrated. Talk to Quan about that...
             
             ThreadManager up = new ThreadManager(keySize); // move to login, then pass around instance
             
@@ -358,7 +361,7 @@ public class FileUploadPanel extends javax.swing.JPanel {
             int pathLength = filePath.length();
             filePath = filePath.substring(0, pathLength - pos2);
             try {
-				up.Encrypt(filePath, baseName, fileExtension);
+				up.Encrypt(filePath, baseName, fileExtension); // not actually sure if this performs the uploading after it's all encrypted etc. also make sure that it all gets deleted locally once uploaded
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
